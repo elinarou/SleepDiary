@@ -1,11 +1,26 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather } from '@expo/vector-icons';  
 import DiaryScreen from './screens/DiaryScreen';
 import CalendarScreen from './screens/CalendarScreen';
-import StatsScreen from './screens/StatsScreen';  
+import StatsScreen from './screens/StatsScreen';
+import EntryScreen from './screens/EntryScreen';
 
+const Home = () => {
+  const Stack = createNativeStackNavigator();
+
+  return (
+    // Nested stack navigator
+    <Stack.Navigator>
+      <Stack.Screen name="Diary"component={DiaryScreen} />
+      <Stack.Screen name="Entry"component={EntryScreen} />
+    </Stack.Navigator>
+  );
+}
+
+// Tab icons
 const screenOptions = ({ route }) => ({
   tabBarIcon: ({ focused, color, size }) => {
     let iconName;
@@ -26,9 +41,10 @@ const Tab = createBottomTabNavigator();
 
 export default function Navigation() {
   return (
+    // Tab navigator
     <NavigationContainer>
       <Tab.Navigator screenOptions={screenOptions}>
-        <Tab.Screen name="Diary" component={DiaryScreen} />
+        <Tab.Screen name="Diary" component={Home} options={{ headerShown: false }} />
         <Tab.Screen name="Calendar" component={CalendarScreen} />
         <Tab.Screen name="Stats" component={StatsScreen} />
       </Tab.Navigator>

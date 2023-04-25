@@ -1,11 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View, Button } from 'react-native';
 
-export default function DiaryScreen() {
+export default function DiaryScreen({ navigation }) {
 
   return (
-    <View style={styles.container}>
-    <Text>Diary!</Text>
+    <View style={styles.button}>
+      <Button 
+        onPress={() => navigation.navigate("Entry")}
+        title="Make an entry"
+      />
     </View>
   ); 
 }
@@ -17,5 +20,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  button: {
+    
+  }
 });
   
