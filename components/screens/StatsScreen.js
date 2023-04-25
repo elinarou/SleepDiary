@@ -1,19 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Navigation from './components/Navigation';
 
-export default function App() {
+export default function StatsScreen() {
+
   return (
     <View style={styles.container}>
-      <Navigation />
+    <Text>Stats!</Text>
     </View>
-  );
+  );    
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    justifyContent: 'center'
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
