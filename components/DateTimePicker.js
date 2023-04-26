@@ -3,36 +3,51 @@ import { useState } from 'react';
 import { Text, View, Button } from 'react-native';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 
-export default function DateTimePicker() {
-    const [date, setDate] = useState(new Date());
+export default function DatePicker() {
+  const [date, setDate] = useState(new Date());
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setDate(currentDate);
+  };
+
+  const showDatepicker = () => {
+    DateTimePickerAndroid.open({
+      value: date,
+      onChange,
+      mode: 'date'
+    });
+  };
+
+  return (
+    <View>
+      <Button onPress={showDatepicker} title="Add date" />
+      <Text>selected: {date.toLocaleString()}</Text>
+    </View>
+  );
+};
+
+export default function TimePicker() {
+    const [time, setTime] = useState(new Date());
   
     const onChange = (event, selectedDate) => {
       const currentDate = selectedDate;
-      setDate(currentDate);
+      setTime(currentDate);
     };
   
-    const showMode = (currentMode) => {
+    const showTimepicker = () => {
       DateTimePickerAndroid.open({
-        value: date,
+        value: time,
         onChange,
-        mode: currentMode,
+        mode: 'time',
         is24Hour: true,
       });
     };
   
-    const showDatepicker = () => {
-      showMode('date');
-    };
-  
-    const showTimepicker = () => {
-      showMode('time');
-    };
-  
     return (
       <View>
-        <Button onPress={showDatepicker} title="Show date picker!" />
-        <Button onPress={showTimepicker} title="Show time picker!" />
-        <Text>selected: {date.toLocaleString()}</Text>
+        <Button onPress={showTimepicker} title="Add time" />
+        <Text>selected: {time.toLocaleString()}</Text>
       </View>
     );
   };
