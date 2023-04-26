@@ -14,7 +14,7 @@ const Home = () => {
   return (
     // Nested stack navigator
     <Stack.Navigator>
-      <Stack.Screen name="Diary"component={DiaryScreen} />
+      <Stack.Screen name="Sleep Diary"component={DiaryScreen} />
       <Stack.Screen name="Entry"component={EntryScreen} />
     </Stack.Navigator>
   );
