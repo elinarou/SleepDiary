@@ -1,65 +1,33 @@
-import React from 'react';
-import { useState } from 'react';
-import { Text, View, Button } from 'react-native';
-import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
-
-export function DatePicker() {
-  const [date, setDate] = useState(new Date());
+export const App = () => {
+  const [date, setDate] = useState(new Date(1598051730000));
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
     setDate(currentDate);
   };
 
-  const showDatepicker = () => {
+  const showMode = (currentMode) => {
     DateTimePickerAndroid.open({
       value: date,
       onChange,
-      mode: 'date'
+      mode: currentMode,
+      is24Hour: true,
     });
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
+  };
+
+  const showTimepicker = () => {
+    showMode('time');
   };
 
   return (
     <View>
-      <Button onPress={showDatepicker} title="Add date" />
+      <Button onPress={showDatepicker} title="Show date picker!" />
+      <Button onPress={showTimepicker} title="Show time picker!" />
       <Text>selected: {date.toLocaleString()}</Text>
     </View>
   );
 };
-
-export default function TimePicker(props) {
-  const [entry, setEntry] = useState(
-    {
-      entryDate: new Date(),
-      bedTime: new Date(),
-      sleepOnset: new Date(),
-      //sleepDelay: '',
-      awake: false,
-      awakeTime: '10',
-      sleepEnd: new Date(),
-      //sleepTime: '',
-      comment: 'Testikommentti',
-      quality: ''  
-    });
-  
-    const onChange = (event, selectedTime) => {
-      const currentTime = selectedTime;
-      setEntry({...entry, bedTime: currentTime});
-    };
-  
-    const showTimepicker = () => {
-      DateTimePickerAndroid.open({
-        value: entry.bedTime,
-        onChange,
-        mode: 'time',
-        is24Hour: true,
-      });
-    };
-  
-    return (
-      <View>
-        <Button onPress={showTimepicker} title="Add time" />
-        <Text>{entry.bedTime.toLocaleString()}</Text>
-      </View>
-    );
-  };

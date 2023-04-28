@@ -1,18 +1,23 @@
 import React from 'react';
 import { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import Rating from '../Rating';
 
+const formatDate = (date, time) => {
+  return `${date.getDate()}/${date.getMonth() +
+    1}/${date.getFullYear()} ${time.getHours()}:${time.getMinutes()}`;
+};
+
 export default function EntryScreen() {
+  const [date, setDate] = useState(new Date());
   const [time, setTime] = useState(new Date());
   const [showAwake, setShowAwake] = useState(false);
   const [entry, setEntry] = useState(
     {
-      entryDate: new Date(),
       bedTime: new Date(),
-      sleepOnset: new Date(),
-      //sleepDelay: '',
+      //sleepOnset: new Date(),
+      sleepDelay: '',
       awakeTime: '',
       sleepEnd: new Date(),
       //sleepTime: '',
@@ -21,19 +26,37 @@ export default function EntryScreen() {
     });
   
   let type = "";
+  let pickerMode = "date";
 
-  const onChange = (event, selectedTime) => {
+  /* const onChange = (event, selectedTime) => {
     const currentTime = selectedTime;
     setEntry({...entry, [type]: currentTime});
+  }; */
+
+  const onChange = (event, selectedValue) => {
+    if (pickerMode == "date") {
+      const currentDate = selectedValue;
+      setDate(currentDate);
+      pickerMode = "time";
+      showMode(pickerMode);
+    }
+    else if (pickerMode == "time") {
+      const selectedTime = selectedValue;
+      setTime(selectedTime);
+    };
   };
 
-  const showTimepicker = () => {
+  const showMode = (currentMode) => {
     DateTimePickerAndroid.open({
-      value: time,
+      value: date,
       onChange,
-      mode: "time",
+      mode: currentMode,
       is24Hour: true,
     });
+  };
+
+  const showDatepicker = () => {
+    showMode(pickerMode);
   };
 
   const saveEntry = () => {
@@ -44,12 +67,19 @@ export default function EntryScreen() {
     <View style={styles.container}>
 
       <Text>When did you get into bed?</Text>
-      <Button onPress={() => {type = "bedTime"; showTimepicker();}} title="Add time" />
+      <TouchableOpacity onPress={() => {type = "bedTime"; showDatepicker()}}>
+        <Text style={{fontSize: 20}}>{formatDate(date, time)}</Text>
+      </TouchableOpacity>
       <Text>{entry.bedTime.toLocaleString()}</Text>
 
-      <Text>When did you fall asleep?</Text>
-      <Button onPress={() => {type = "sleepOnset"; showTimepicker();}} title="Add time" />
-      <Text>{entry.sleepOnset.toLocaleString()}</Text>
+      <Text>How long did it take you to fall asleep?</Text>
+      <TextInput
+            style={styles.input}
+            onChangeText={text => setEntry({...entry, sleepDelay: text})}
+            value={entry.awakeTime}
+            keyboardType="numeric"
+            placeholder="Min"
+      />
 
       <Text>Did you wake up during the nigh?</Text>
       <View style={styles.buttons}>
@@ -76,9 +106,11 @@ export default function EntryScreen() {
         </View>)
       }
       <Text>When did you wake up for the last time?</Text>
-      <Button onPress={() => {type = "sleepEnd"; showTimepicker();}} title="Add time" />
-      <Text>{entry.sleepEnd.toLocaleString()}</Text>
-  
+      <TouchableOpacity onPress={() => {type = "sleepEnd"; showDatepicker()}}>
+        <Text style={{fontSize: 20}}>{formatDate(date, time)}</Text>
+      </TouchableOpacity>
+      <Text>{entry.bedTime.toLocaleString()}</Text>
+
       <Text>Other comments?</Text>
       <TextInput
         style={styles.input}
@@ -98,7 +130,7 @@ export default function EntryScreen() {
     
     </View>
   ); 
-}
+};
 
 const styles = StyleSheet.create({
   container: {
