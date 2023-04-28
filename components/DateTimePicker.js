@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Text, View, Button } from 'react-native';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 
-export default function DatePicker() {
+export function DatePicker() {
   const [date, setDate] = useState(new Date());
 
   const onChange = (event, selectedDate) => {
@@ -27,17 +27,29 @@ export default function DatePicker() {
   );
 };
 
-export default function TimePicker() {
-    const [time, setTime] = useState(new Date());
+export default function TimePicker(props) {
+  const [entry, setEntry] = useState(
+    {
+      entryDate: new Date(),
+      bedTime: new Date(),
+      sleepOnset: new Date(),
+      //sleepDelay: '',
+      awake: false,
+      awakeTime: '10',
+      sleepEnd: new Date(),
+      //sleepTime: '',
+      comment: 'Testikommentti',
+      quality: ''  
+    });
   
-    const onChange = (event, selectedDate) => {
-      const currentDate = selectedDate;
-      setTime(currentDate);
+    const onChange = (event, selectedTime) => {
+      const currentTime = selectedTime;
+      setEntry({...entry, bedTime: currentTime});
     };
   
     const showTimepicker = () => {
       DateTimePickerAndroid.open({
-        value: time,
+        value: entry.bedTime,
         onChange,
         mode: 'time',
         is24Hour: true,
@@ -47,7 +59,7 @@ export default function TimePicker() {
     return (
       <View>
         <Button onPress={showTimepicker} title="Add time" />
-        <Text>selected: {time.toLocaleString()}</Text>
+        <Text>{entry.bedTime.toLocaleString()}</Text>
       </View>
     );
   };

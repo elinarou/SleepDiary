@@ -1,22 +1,40 @@
 import React from 'react';
 import { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import Rating from '../Rating';
 
-export default function EntryForm() {
+export default function EntryScreen() {
+  const [time, setTime] = useState(new Date());
+  const [show, setShow] = useState(false);
   const [entry, setEntry] = useState(
     {
-      date: new Date(),
-      bedTime: '',
-      sleepOnset: '',
+      entryDate: new Date(),
+      bedTime: new Date(),
+      sleepOnset: new Date(),
       //sleepDelay: '',
-      awake: false,
       awakeTime: '',
-      sleepEnd: '',
+      sleepEnd: new Date(),
       //sleepTime: '',
       comment: '',
       quality: ''  
     });
+  
+  let type = "";
+
+  const onChange = (event, selectedTime) => {
+    const currentTime = selectedTime;
+    setEntry({...entry, [type]: currentTime});
+  };
+
+  const showTimepicker = () => {
+    DateTimePickerAndroid.open({
+      value: time,
+      onChange,
+      mode: 'time',
+      is24Hour: true,
+    });
+  };
 
   const saveEntry = () => {
 
@@ -24,28 +42,26 @@ export default function EntryForm() {
 
   return (
     <View style={styles.container}>
+
       <Text>When did you get into bed?</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={text => setEntry({...entry, bedTime: text})}
-        value={entry.bedTime}
-        keyboardType="numeric"
-        placeholder='HH:mm'
-      />
+      <Button onPress={() => {type = "bedTime"; showTimepicker();}} title="Add time" />
+
       <Text>When did you fall asleep?</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={text => setEntry({...entry, sleepOnset: text})}
-        value={entry.sleepOnset}
-        keyboardType="numeric"
-        placeholder='HH:mm'
-      />
+      <Button onPress={() => {type = "sleepOnset"; showTimepicker();}} title="Add time" />
+
       <Text>Did you wake up during the nigh?</Text>
-      <Button
-        onPress={() => setEntry({...entry, awake: true})}
-        title="Yes"
-      />
-      {entry.awake &&
+      <View style={styles.buttons}>
+        <Button
+          onPress={() => {setShow(true)}}
+          title="Yes"
+        />
+        <Button
+          onPress={() => {setShow(false); setEntry({...entry, awakeTime: ''});}}
+          title="No"
+        />
+      </View>
+
+      {awake &&
         (<View>
           <Text>How long were you awake in total?</Text>
           <TextInput
@@ -53,34 +69,37 @@ export default function EntryForm() {
             onChangeText={text => setEntry({...entry, awakeTime: text})}
             value={entry.awakeTime}
             keyboardType="numeric"
-            placeholder='Min'
+            placeholder="Min"
           />
         </View>)
       }
-      <Text>When did you wake up?</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={text => setEntry({...entry, sleepEnd: text})}
-        value={entry.sleepEnd}
-        placeholder='HH:mm'
-      />
+      <Text>When did you wake up for the last time?</Text>
+      <Button onPress={() => {type = "sleepEnd"; showTimepicker();}} title="Add time" />
+  
       <Text>Other comments?</Text>
       <TextInput
         style={styles.input}
         onChangeText={text => setEntry({...entry, comment: text})}
         value={entry.comment}
-        placeholder='Comment'
+        placeholder="Comment"
         multiline
         numberOfLines={4}
         maxLength={250}
-        textAlignVertical='top'
+        textAlignVertical="top"
       />
+
       <Text>How would you rate your sleep quality?</Text>
       <Rating />
-      <Button
-        onPress={saveEntry()}
-        title="Save"
-      />
+
+      <Button onPress={saveEntry()} title="Save" />
+      <Text>Entry date: {entry.entryDate.toLocaleString()}</Text>
+      <Text>Bed time: {entry.bedTime.toLocaleString()}</Text>
+      <Text>Sleep onset: {entry.sleepOnset.toLocaleString()}</Text>
+      <Text>Awakening: {entry.sleepEnd.toLocaleString()}</Text>
+      <Text>Total awake time: {entry.awakeTime}</Text>
+      <Text>Comment: {entry.comment}</Text>
+      <Text>Quality: {entry.quality}</Text>
+      <Text>Awake: {awake.toLocaleString()}</Text>
     </View>
   ); 
 }
@@ -99,6 +118,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 5,
     margin: 10
+  },
+
+  buttons : {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
 
   button: {
