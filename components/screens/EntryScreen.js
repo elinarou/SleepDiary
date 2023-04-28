@@ -6,7 +6,7 @@ import Rating from '../Rating';
 
 export default function EntryScreen() {
   const [time, setTime] = useState(new Date());
-  const [show, setShow] = useState(false);
+  const [showAwake, setShowAwake] = useState(false);
   const [entry, setEntry] = useState(
     {
       entryDate: new Date(),
@@ -31,7 +31,7 @@ export default function EntryScreen() {
     DateTimePickerAndroid.open({
       value: time,
       onChange,
-      mode: 'time',
+      mode: "time",
       is24Hour: true,
     });
   };
@@ -45,23 +45,25 @@ export default function EntryScreen() {
 
       <Text>When did you get into bed?</Text>
       <Button onPress={() => {type = "bedTime"; showTimepicker();}} title="Add time" />
+      <Text>{entry.bedTime.toLocaleString()}</Text>
 
       <Text>When did you fall asleep?</Text>
       <Button onPress={() => {type = "sleepOnset"; showTimepicker();}} title="Add time" />
+      <Text>{entry.sleepOnset.toLocaleString()}</Text>
 
       <Text>Did you wake up during the nigh?</Text>
       <View style={styles.buttons}>
         <Button
-          onPress={() => {setShow(true)}}
+          onPress={() => {setShowAwake(true)}}
           title="Yes"
         />
         <Button
-          onPress={() => {setShow(false); setEntry({...entry, awakeTime: ''});}}
+          onPress={() => {setShowAwake(false); setEntry({...entry, awakeTime: ''});}}
           title="No"
         />
       </View>
 
-      {awake &&
+      {showAwake &&
         (<View>
           <Text>How long were you awake in total?</Text>
           <TextInput
@@ -75,6 +77,7 @@ export default function EntryScreen() {
       }
       <Text>When did you wake up for the last time?</Text>
       <Button onPress={() => {type = "sleepEnd"; showTimepicker();}} title="Add time" />
+      <Text>{entry.sleepEnd.toLocaleString()}</Text>
   
       <Text>Other comments?</Text>
       <TextInput
@@ -92,14 +95,7 @@ export default function EntryScreen() {
       <Rating />
 
       <Button onPress={saveEntry()} title="Save" />
-      <Text>Entry date: {entry.entryDate.toLocaleString()}</Text>
-      <Text>Bed time: {entry.bedTime.toLocaleString()}</Text>
-      <Text>Sleep onset: {entry.sleepOnset.toLocaleString()}</Text>
-      <Text>Awakening: {entry.sleepEnd.toLocaleString()}</Text>
-      <Text>Total awake time: {entry.awakeTime}</Text>
-      <Text>Comment: {entry.comment}</Text>
-      <Text>Quality: {entry.quality}</Text>
-      <Text>Awake: {awake.toLocaleString()}</Text>
+    
     </View>
   ); 
 }
