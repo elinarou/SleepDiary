@@ -1,53 +1,79 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 
-export default function Rating() {
-  const [starRating, setStarRating] = useState(null);
+
+export default function Rating(props) {
+  const [color, setColor] = useState(null);
+  const [review, setReview] = useState('');
+
+  const addRating = (value) => {
+    props.setEntry({...props.entry, quality: value});
+  };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <View style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Text style={styles.heading}>{starRating ? `${starRating}*` : 'Tap to rate'}</Text>
+        <Text style={styles.heading}>{color ? `${review}` : 'Rate your sleep'}</Text>
         <View style={styles.stars}>
-          <TouchableOpacity onPress={() => setStarRating(1)}>
-            <MaterialIcons
-              name={starRating >= 1 ? 'star' : 'star-border'}
+          <TouchableOpacity onPress={() => {
+            setColor(1);
+            setReview("Poor")
+            addRating(1);
+            }}>
+            <FontAwesome
+              name={color >= 1 ? 'star' : 'star-o'}
               size={32}
-              style={starRating >= 1 ? styles.starSelected : styles.starUnselected}
+              style={color >= 1 ? styles.starSelected : styles.starUnselected}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setStarRating(2)}>
-            <MaterialIcons
-              name={starRating >= 2 ? 'star' : 'star-border'}
+          <TouchableOpacity onPress={() => {
+            setColor(2);
+            setReview("Fair") 
+            addRating(2);
+            }}>
+            <FontAwesome
+              name={color >= 2 ? 'star' : 'star-o'}
               size={32}
-              style={starRating >= 2 ? styles.starSelected : styles.starUnselected}
+              style={color >= 2 ? styles.starSelected : styles.starUnselected}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setStarRating(3)}>
-            <MaterialIcons
-              name={starRating >= 3 ? 'star' : 'star-border'}
+          <TouchableOpacity onPress={() => {
+            setColor(3);
+            setReview("Good") 
+            addRating(3);
+            }}>
+            <FontAwesome
+              name={color >= 3 ? 'star' : 'star-o'}
               size={32}
-              style={starRating >= 3 ? styles.starSelected : styles.starUnselected}
+              style={color >= 3 ? styles.starSelected : styles.starUnselected}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setStarRating(4)}>
-            <MaterialIcons
-              name={starRating >= 4 ? 'star' : 'star-border'}
+          <TouchableOpacity onPress={() => {
+            setColor(4);
+            setReview("Very good") 
+            addRating(4);
+            }}>
+            <FontAwesome
+              name={color >= 4 ? 'star' : 'star-o'}
               size={32}
-              style={starRating >= 4 ? styles.starSelected : styles.starUnselected}
+              style={color >= 4 ? styles.starSelected : styles.starUnselected}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setStarRating(5)}>
-            <MaterialIcons
-              name={starRating >= 5 ? 'star' : 'star-border'}
+          <TouchableOpacity onPress={() => {
+            setColor(5);
+            setReview("Excellent")
+            addRating(5);
+            }}>
+            <FontAwesome
+              name={color >= 5 ? 'star' : 'star-o'}
               size={32}
-              style={starRating >= 5 ? styles.starSelected : styles.starUnselected}
+              style={color >= 5 ? styles.starSelected : styles.starUnselected}
             />
           </TouchableOpacity>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
