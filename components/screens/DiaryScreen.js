@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Button } from 'react-native';
 
+
 export default function DiaryScreen({ navigation }) {
 
   return (
