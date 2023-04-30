@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import differenceInMinutes from 'date-fns/differenceInMinutes';
-import FormatDate from '../functions/formatDate';
+import FormatDate from '../functions/FormatDate';
 import Rating from '../Rating';
 
 
@@ -16,7 +16,7 @@ export default function AddEntry() {
       sleepEnd: new Date(),
       sleepTime: 0,
       comment: '',
-      quality: ''  
+      quality: 0  
     });
   
   // Temporary variables
@@ -40,10 +40,10 @@ export default function AddEntry() {
       time = selectedTime;
       
       // Combines selected date and time
-      date.setHours(time.getHours())
-      date.setMinutes(time.getMinutes())
-      date.setSeconds(time.getSeconds())
-      date.setMilliseconds(time.getMilliseconds())
+      date.setHours(time.getHours());
+      date.setMinutes(time.getMinutes());
+      date.setSeconds(0);
+      date.setMilliseconds(0);
 
       // Enters either entry.bedtime or entry.sleepEnd
       setEntry({...entry, [type]: date});
@@ -94,14 +94,14 @@ export default function AddEntry() {
 
       <Text>Did you wake up during the nigh?</Text>
       <View style={styles.buttons}>
-        <Button
-          onPress={() => {setShowAwake(true)}}
-          title="Yes"
-        />
-        <Button
-          onPress={() => {setShowAwake(false); setEntry({...entry, awakeTime: ''});}}
-          title="No"
-        />
+        <TouchableOpacity style={styles.button} 
+            onPress={() => {setShowAwake(true)}}>
+            <Text style={{fontSize: 20, color: 'white'}}>Yes</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} 
+            onPress={() => {setShowAwake(false); setEntry({...entry, awakeTime: ''});}}>
+            <Text style={{fontSize: 20, color: 'white'}}>No</Text>
+        </TouchableOpacity>
       </View>
 
       {showAwake &&
@@ -121,6 +121,8 @@ export default function AddEntry() {
         <Text style={{fontSize: 20}}><FormatDate value={entry.sleepEnd} /></Text>
       </TouchableOpacity>
 
+      <Rating entry={entry} setEntry={setEntry} />
+
       <Text>Other comments?</Text>
       <TextInput
         style={styles.input}
@@ -128,15 +130,19 @@ export default function AddEntry() {
         value={entry.comment}
         placeholder="Comment"
         multiline
-        numberOfLines={4}
+        numberOfLines={3}
         maxLength={250}
         textAlignVertical="top"
       />
 
-      <Text>How would you rate your sleep quality?</Text>
-      <Rating />
-
-      <Button onPress={() => saveEntry()} title="Save" />
+      <View style={styles.buttons}>
+        <TouchableOpacity style={styles.button} 
+          onPress={() => {
+            saveEntry();
+            }}>
+            <Text style={{fontSize: 20, color: 'white'}}>Save</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   ); 
 };
@@ -159,11 +165,12 @@ const styles = StyleSheet.create({
 
   buttons : {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    backgroundColor: 'gray',
   },
 
   button: {
-    
+    padding: 5
   }
 });
   
