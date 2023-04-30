@@ -14,7 +14,7 @@ export default function Rating(props) {
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Text style={styles.heading}>{color ? `${review}` : 'Rate your sleep'}</Text>
+        <Text style={styles.heading}>{color ? `${review}` : 'Rate your sleep quality'}</Text>
         <View style={styles.stars}>
           <TouchableOpacity onPress={() => {
             setColor(1);
@@ -82,21 +82,24 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
+    justifyContent: 'center'
   },
+
   heading: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 10,
   },
+  
   stars: {
     display: 'flex',
     flexDirection: 'row',
   },
+
   starUnselected: {
     color: '#aaa',
   },
+  
   starSelected: {
     color: '#ffb300',
   },

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { Tooltip } from 'react-native-elements';
+import { MaterialCommunityIcons } from 'react-native-vector-icons';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import differenceInMinutes from 'date-fns/differenceInMinutes';
 import FormatDate from '../functions/FormatDate';
-import Rating from '../Rating';
+import Rating from './Rating';
 
 
 export default function AddEntry() {
@@ -78,71 +80,90 @@ export default function AddEntry() {
   return (
     <View style={styles.container}>
 
-      <Text>When did you get into bed?</Text>
-      <TouchableOpacity onPress={() => {type = "bedTime"; showDatepicker()}}>
-        <Text style={{fontSize: 20}}><FormatDate value={entry.bedTime} /></Text>
-      </TouchableOpacity>
-
-      <Text>How long did it take you to fall asleep? (min)</Text>
-      <TextInput
-            style={styles.input}
-            onChangeText={text => setEntry({...entry, sleepDelay: text})}
-            value={entry.sleepDelay}
-            keyboardType="numeric"
-            placeholder="Min"
-      />
-
-      <Text>Did you wake up during the nigh?</Text>
-      <View style={styles.buttons}>
-        <TouchableOpacity style={styles.button} 
-            onPress={() => {setShowAwake(true)}}>
-            <Text style={{fontSize: 20, color: 'white'}}>Yes</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} 
-            onPress={() => {setShowAwake(false); setEntry({...entry, awakeTime: ''});}}>
-            <Text style={{fontSize: 20, color: 'white'}}>No</Text>
+      <View style={styles.section}>
+        <Text style={styles.heading}>When did you get into bed?</Text>
+        <TouchableOpacity onPress={() => {type = "bedTime"; showDatepicker()}}>
+          <Text style={{fontSize: 20}}><FormatDate value={entry.bedTime} /></Text>
         </TouchableOpacity>
       </View>
 
-      {showAwake &&
-        (<View>
-          <Text>How long were you awake in total? (min)</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={text => setEntry({...entry, awakeTime: text})}
-            value={entry.awakeTime}
-            keyboardType="numeric"
-            placeholder="Min"
-          />
-        </View>)
-      }
-      <Text>When did you wake up for the last time?</Text>
-      <TouchableOpacity onPress={() => {type = "sleepEnd"; showDatepicker()}}>
-        <Text style={{fontSize: 20}}><FormatDate value={entry.sleepEnd} /></Text>
-      </TouchableOpacity>
+      <View style={styles.section}>
+        <View style={styles.tooltip}>
+          <Text style={styles.heading}>Sleep onset latency (SOL)</Text>
+          <Tooltip 
+            popover={<Text style={{fontSize: 18}}>How many minutes did it take to fall asleep?</Text>}
+            height={55}
+            width={380}>
+              <MaterialCommunityIcons name="information" size={25}/>
+          </Tooltip>
+        </View>
+        <TextInput
+          style={styles.input}
+          onChangeText={text => setEntry({...entry, sleepDelay: text})}
+          value={entry.sleepDelay}
+          keyboardType="numeric"
+          placeholder="Min"
+        />
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.heading}>Did you wake up during the nigh?</Text>
+        <View style={styles.buttons}>
+          <TouchableOpacity style={styles.button} 
+            onPress={() => {setShowAwake(true)}}>
+            <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>Yes</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} 
+            onPress={() => {setShowAwake(false); setEntry({...entry, awakeTime: ''});}}>
+            <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>No</Text>
+          </TouchableOpacity>
+        </View>
+        {showAwake &&
+          (<View>
+            <Text style={styles.heading}>How long were you awake in total?</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={text => setEntry({...entry, awakeTime: text})}
+              value={entry.awakeTime}
+              keyboardType="numeric"
+              placeholder="Min"
+            />
+          </View>)
+        }
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.heading}>When did you wake up for the last time?</Text>
+        <TouchableOpacity onPress={() => {type = "sleepEnd"; showDatepicker()}}>
+          <Text style={{fontSize: 20}}><FormatDate value={entry.sleepEnd} /></Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.heading}>Other comments?</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={text => setEntry({...entry, comment: text})}
+          value={entry.comment}
+          placeholder="Comment"
+          multiline
+          numberOfLines={3}
+          maxLength={250}
+          textAlignVertical="top"
+        />
+      </View>
 
       <Rating entry={entry} setEntry={setEntry} />
-
-      <Text>Other comments?</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={text => setEntry({...entry, comment: text})}
-        value={entry.comment}
-        placeholder="Comment"
-        multiline
-        numberOfLines={3}
-        maxLength={250}
-        textAlignVertical="top"
-      />
 
       <View style={styles.buttons}>
         <TouchableOpacity style={styles.button} 
           onPress={() => {
             saveEntry();
             }}>
-            <Text style={{fontSize: 20, color: 'white'}}>Save</Text>
+            <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>Save</Text>
         </TouchableOpacity>
       </View>
+
     </View>
   ); 
 };
@@ -155,15 +176,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  input : {
-    width:200  , 
+  section: {
+    margin: 5,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
+  input: {
+    width: 200, 
     borderColor: 'gray', 
     borderWidth: 1,
-    padding: 5,
+    paddingLeft: 5,  
     margin: 10
   },
 
-  buttons : {
+  tooltip: {
+    flexDirection: 'row',
+  },
+
+  buttons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: 'gray',
@@ -171,6 +202,13 @@ const styles = StyleSheet.create({
 
   button: {
     padding: 5
-  }
+  },
+
+  heading: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 15,
+    marginBottom: 5,
+  },
 });
   
