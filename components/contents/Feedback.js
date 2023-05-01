@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 
 export default function FeedbackScreen() {
-
+  
 
   return (
     <View style={styles.container}>
-      <Text>You slept in total minutes.</Text>
+      <Text style={styles.heading}>Entry saved</Text>
     </View>
   ); 
 };
@@ -18,6 +18,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+
+  heading: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 15,
+    marginBottom: 5,
   },
 });
   

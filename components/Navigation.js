@@ -7,7 +7,6 @@ import DiaryScreen from './screens/DiaryScreen';
 import CalendarScreen from './screens/CalendarScreen';
 import StatsScreen from './screens/StatsScreen';
 import EntryScreen from './screens/EntryScreen';
-import FeedBackScreen from './screens/FeedbackScreen';
 
 
 const Home = () => {
@@ -18,7 +17,6 @@ const Home = () => {
     <Stack.Navigator>
       <Stack.Screen name="Sleep Diary"component={DiaryScreen} />
       <Stack.Screen name="Entry"component={EntryScreen} />
-      <Stack.Screen name="Feedback"component={FeedBackScreen} />
     </Stack.Navigator>
   );
 }

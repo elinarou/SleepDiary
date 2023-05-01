@@ -9,6 +9,7 @@ export default function Rating(props) {
 
   const addRating = (value) => {
     props.setEntry({...props.entry, quality: value});
+    props.setShowFeedback(true);
   };
 
   return (
