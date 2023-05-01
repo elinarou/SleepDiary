@@ -1,11 +1,11 @@
 import { StyleSheet, View } from 'react-native';
-import Navigation from './components/Navigation';
+import TabNavigation from './components/navigation/TabNavigation';
 
 export default function App() {
 
   return (
     <View style={styles.container}>
-      <Navigation />
+      <TabNavigation />
     </View>
   );
 }

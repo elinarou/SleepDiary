@@ -1,25 +1,11 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather } from '@expo/vector-icons';  
-import DiaryScreen from './screens/DiaryScreen';
-import CalendarScreen from './screens/CalendarScreen';
-import StatsScreen from './screens/StatsScreen';
-import EntryScreen from './screens/EntryScreen';
+import StackNavigation from './StackNavigation';
+import CalendarScreen from '../screens/CalendarScreen';
+import StatsScreen from '../screens/StatsScreen';
 
-
-const Home = () => {
-  const Stack = createNativeStackNavigator();
-
-  return (
-    // Nested stack navigator
-    <Stack.Navigator>
-      <Stack.Screen name="Sleep Diary"component={DiaryScreen} />
-      <Stack.Screen name="Entry"component={EntryScreen} />
-    </Stack.Navigator>
-  );
-}
 
 // Tab icons
 const screenOptions = ({ route }) => ({
@@ -40,16 +26,15 @@ const screenOptions = ({ route }) => ({
 
 const Tab = createBottomTabNavigator();
 
-export default function Navigation() {
+export default function TabNavigation() {
   return (
     // Tab navigator
     <NavigationContainer>
       <Tab.Navigator screenOptions={screenOptions}>
-        <Tab.Screen name="Diary" component={Home} options={{ headerShown: false }} />
+        <Tab.Screen name="Diary" component={StackNavigation} options={{ headerShown: false }} />
         <Tab.Screen name="Calendar" component={CalendarScreen} />
         <Tab.Screen name="Stats" component={StatsScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
 }
-
