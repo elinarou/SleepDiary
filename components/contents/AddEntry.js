@@ -5,6 +5,7 @@ import { MaterialCommunityIcons } from 'react-native-vector-icons';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import differenceInMinutes from 'date-fns/differenceInMinutes';
 import FormatDate from '../functions/FormatDate';
+import FormatMinutes from '../functions/FormatMinutes';
 import Rating from './Rating';
 
 
@@ -36,7 +37,7 @@ export default function AddEntry(props) {
 
       // Opens time picker
       pickerMode = "time";
-      showMode(pickerMode);
+      showDateTimePicker(pickerMode);
     }
     else if (pickerMode == "time") {
       const selectedTime = selectedValue;
@@ -54,7 +55,7 @@ export default function AddEntry(props) {
   };
 
   // Opens DateTimePicker
-  const showMode = (currentMode) => {
+  const showDateTimePicker = (currentMode) => {
     DateTimePickerAndroid.open({
       value: date,
       onChange,
@@ -63,11 +64,7 @@ export default function AddEntry(props) {
     });
   };
 
-  const showDatepicker = () => {
-    showMode(pickerMode);
-  };
-
-  // Calculates total sleep time 
+  // Calculates total sleep time
   const calculateSleep = () => {
     let sleep = differenceInMinutes(entry.sleepEnd, entry.bedTime);
     sleep = sleep - parseInt(entry.sleepDelay) - parseInt(entry.awakeTime);
@@ -75,7 +72,7 @@ export default function AddEntry(props) {
   };
 
   const saveEntry = () => {
-    calculateSleep();
+    props.setShowFeedback(true);
   };
 
   return (
@@ -83,14 +80,19 @@ export default function AddEntry(props) {
       {showRating ?
       /* Condition shows calculated sleep time and rating */
       <View>
-      <Text style={styles.heading}>You slept for {entry.sleepTime / 60} hours</Text>
-      <Rating entry={entry} setEntry={setEntry} setShowFeedback={props.setShowFeedback}/>
+        <Text style={styles.heading}><FormatMinutes value={entry.sleepTime} /></Text>
+
+        <Rating entry={entry} setEntry={setEntry} />
+
+        <TouchableOpacity style={styles.button} onPress={() => saveEntry()}>
+          <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>Save</Text>
+        </TouchableOpacity>
       </View> : 
       /* Condition shows form */
       <View>
         <View style={styles.section}>
           <Text style={styles.heading}>When did you get into bed?</Text>
-          <TouchableOpacity onPress={() => {type = "bedTime"; showDatepicker()}}>
+          <TouchableOpacity onPress={() => {type = "bedTime"; showDateTimePicker(pickerMode);}}>
             <Text style={{fontSize: 20}}><FormatDate value={entry.bedTime} /></Text>
           </TouchableOpacity>
         </View>
@@ -126,6 +128,7 @@ export default function AddEntry(props) {
               <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>No</Text>
             </TouchableOpacity>
           </View>
+
           {showAwake &&
             (<View>
               <Text style={styles.heading}>How long were you awake in total?</Text>
@@ -142,7 +145,7 @@ export default function AddEntry(props) {
 
         <View style={styles.section}>
           <Text style={styles.heading}>When did you wake up for the last time?</Text>
-          <TouchableOpacity onPress={() => {type = "sleepEnd"; showDatepicker()}}>
+          <TouchableOpacity onPress={() => {type = "sleepEnd"; showDateTimePicker(pickerMode);}}>
             <Text style={{fontSize: 20}}><FormatDate value={entry.sleepEnd} /></Text>
           </TouchableOpacity>
         </View>
@@ -161,15 +164,13 @@ export default function AddEntry(props) {
           />
         </View>
 
-        <View style={styles.buttons}>
-          <TouchableOpacity style={styles.button} 
-            onPress={() => {
-              saveEntry();
-              setShowRating(true);
-              }}>
-              <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>Save</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity style={styles.button} 
+          onPress={() => {
+            setShowRating(true);
+            calculateSleep()
+            }}>
+            <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>Continue</Text>
+        </TouchableOpacity>
       </View>
       }
     </View>
@@ -205,11 +206,11 @@ const styles = StyleSheet.create({
   buttons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: 'gray',
   },
 
   button: {
-    padding: 5
+    padding: 5,
+    backgroundColor: 'gray'
   },
 
   heading: {
