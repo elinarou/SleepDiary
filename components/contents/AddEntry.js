@@ -73,6 +73,7 @@ export default function AddEntry(props) {
 
   const saveEntry = () => {
     props.setShowFeedback(true);
+    props.saveEntry(entry);
   };
 
   return (
