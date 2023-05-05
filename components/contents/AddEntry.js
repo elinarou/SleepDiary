@@ -28,6 +28,7 @@ export default function AddEntry(props) {
   let pickerMode = "date";
   let date = new Date();
   let time = new Date();
+  let yesterday = date.setDate(date.getDate() - 1);
 
   // Handles date & time picker values
   const onChange = (event, selectedValue) => {
@@ -61,6 +62,8 @@ export default function AddEntry(props) {
       onChange,
       mode: currentMode,
       is24Hour: true,
+      minimumDate: yesterday,
+      maximumDate: new Date()
     });
   };
 
@@ -72,7 +75,6 @@ export default function AddEntry(props) {
   };
 
   const saveEntry = () => {
-    props.setShowFeedback(true);
     props.saveEntry(entry);
   };
 
