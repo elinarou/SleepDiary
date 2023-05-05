@@ -83,7 +83,7 @@ export default function AddEntry(props) {
       {showRating ?
       /* Condition shows calculated sleep time and rating */
       <View>
-        <Text style={styles.heading}><FormatMinutes value={entry.sleepTime} /></Text>
+        <Text style={styles.heading}>You slept for <FormatMinutes value={entry.sleepTime} /></Text>
 
         <Rating entry={entry} setEntry={setEntry} />
 
