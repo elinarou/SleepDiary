@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import AddEntry from '../contents/AddEntry';
-import Feedback from '../contents/Feedback';
-import { database } from '../../FirebaseConfig';
+import { database } from '../database/FirebaseConfig';
 import { push, ref } from 'firebase/database';
 
 
 export default function EntryScreen() {
-  const [showFeedback, setShowFeedback] = useState(false);
 
   // Pushes entry to the database
   const saveEntry = (entry) => {
@@ -20,12 +18,20 @@ export default function EntryScreen() {
         'sleepTime': entry.sleepTime,
         'comment': entry.comment,
         'quality': entry.quality 
-      });
+      })
+    .then(() => {
+      // Saved successfully
+      alert("Entry saved");
+    })  
+    .catch((error) => {
+      // Save failed
+      alert(error);
+    });
   };
 
   return (
     <View style={styles.container}>
-      {showFeedback ? <Feedback /> : <AddEntry setShowFeedback={setShowFeedback} saveEntry={saveEntry} />}
+      <AddEntry saveEntry={saveEntry} />
     </View>
   ); 
 };
