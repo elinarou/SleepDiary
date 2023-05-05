@@ -1,12 +1,24 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { ref, onValue, query, limitToLast } from 'firebase/database';
+import { database } from '../database/FirebaseConfig';
 
 
 export default function StatsScreen() {
+  const [entries, setEntries] = useState([]);
+
+  useEffect(() => {
+    const entriesRef = query(ref(database, 'entries/'), limitToLast(1));
+    onValue(entriesRef, (snapshot) => {
+      const data = snapshot.val();
+      setEntries(Object.values(data));
+    })
+  }, []);
+
 
   return (
     <View style={styles.container}>
-    <Text>Stats!</Text>
+      <Text>Stats!</Text>   
     </View>
   );    
 }
@@ -18,4 +30,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
 });
