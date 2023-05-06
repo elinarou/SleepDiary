@@ -7,13 +7,15 @@ import { database } from '../database/FirebaseConfig';
 export default function StatsScreen() {
   const [entries, setEntries] = useState([]);
 
-  useEffect(() => {
+/*   useEffect(() => {
     const entriesRef = query(ref(database, 'entries/'), limitToLast(1));
     onValue(entriesRef, (snapshot) => {
-      const data = snapshot.val();
-      setEntries(Object.values(data));
+      if (snapshot.val() !== null) {
+        const data = snapshot.val();
+        setEntries(Object.values(data));
+      }
     })
-  }, []);
+  }, []); */
 
 
   return (
