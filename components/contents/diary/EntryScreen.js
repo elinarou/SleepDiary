@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import AddEntry from '../contents/AddEntry';
-import { database } from '../database/FirebaseConfig';
+import AddEntry from './AddEntry';
+import { database } from '../../database/FirebaseConfig';
 import { push, ref } from 'firebase/database';
 
 

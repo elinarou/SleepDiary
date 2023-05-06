@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
-import SleepCalendar from '../contents/SleepCalendar';
-import SleepCalendarDay from '../contents/SleepCalendarDay';
+import CalendarPicker from './CalendarPicker';
+import CalendarDay from './CalendarDay';
 import { onValue, ref, query, orderByChild, equalTo } from 'firebase/database';
-import { database } from '../database/FirebaseConfig';
+import { database } from '../../database/FirebaseConfig';
 
 
 export default function CalendarScreen() {
@@ -27,8 +27,8 @@ export default function CalendarScreen() {
 
   return (
     <View style={styles.container}>
-      <SleepCalendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
-      <SleepCalendarDay selectedDate={selectedDate} entries={entries} showEntry={showEntry}/>
+      <CalendarPicker selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+      <CalendarDay selectedDate={selectedDate} entries={entries} showEntry={showEntry}/>
     </View>
   );
 }

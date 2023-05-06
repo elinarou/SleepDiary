@@ -5,8 +5,8 @@ import { MaterialCommunityIcons } from 'react-native-vector-icons';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import differenceInMinutes from 'date-fns/differenceInMinutes';
 import format from "date-fns/format";
-import FormatDateTime from '../functions/FormatDateTime';
-import FormatMinutes from '../functions/FormatMinutes';
+import FormatDateTime from '../../functions/FormatDateTime';
+import FormatMinutes from '../../functions/FormatMinutes';
 import Rating from './Rating';
 
 
@@ -84,7 +84,8 @@ export default function AddEntry(props) {
   return (
     <View style={styles.container}>
       {showRating ?
-      /* Condition shows calculated sleep time and rating */
+      // Conditional rendering, 1. & 2.
+      // 1. Sleep time and rating
       <View>
         <Text style={styles.heading}>You slept for <FormatMinutes value={entry.sleepTime} /></Text>
 
@@ -93,8 +94,8 @@ export default function AddEntry(props) {
         <TouchableOpacity style={styles.button} onPress={() => addEntry()}>
           <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>Save</Text>
         </TouchableOpacity>
-      </View> : 
-      /* Condition shows form */
+      </View> 
+      : // 2. Entry form
       <View>
         <View style={styles.section}>
           <Text style={styles.heading}>When did you get into bed?</Text>

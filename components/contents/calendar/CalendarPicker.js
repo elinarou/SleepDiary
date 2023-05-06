@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 
-export default function SleepCalendar(props) {
+export default function CalendarPicker(props) {
 
   return (
     <View style={styles.container}>

@@ -3,8 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather } from '@expo/vector-icons';  
 import StackNavigation from './StackNavigation';
-import CalendarScreen from '../screens/CalendarScreen';
-import StatsScreen from '../screens/StatsScreen';
+import CalendarScreen from '../contents/calendar/CalendarScreen';
+import StatsScreen from '../contents/stats/StatsScreen';
 
 
 // Tab icons

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Button } from 'react-native';
-import LatestEntry from '../contents/LatestEntry';
+import LatestEntry from './LatestEntry';
 
 
 export default function DiaryScreen({ navigation }) {

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
-import FormatDateTime from '../functions/FormatDateTime';
-import FormatMinutes from '../functions/FormatMinutes';
+import FormatDateTime from '../../functions/FormatDateTime';
+import FormatMinutes from '../../functions/FormatMinutes';
 
 
 export default function SleepCalendarDay(props) {

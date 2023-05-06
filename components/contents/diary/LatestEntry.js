@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { onValue, ref, query, limitToLast } from 'firebase/database';
-import { database } from '../database/FirebaseConfig';
-import FormatDateTime from '../functions/FormatDateTime';
-import FormatMinutes from '../functions/FormatMinutes';
+import { database } from '../../database/FirebaseConfig';
+import FormatDateTime from '../../functions/FormatDateTime';
+import FormatMinutes from '../../functions/FormatMinutes';
 
 
 export default function LatestEntry() {
