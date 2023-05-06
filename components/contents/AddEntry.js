@@ -4,7 +4,8 @@ import { Tooltip } from 'react-native-elements';
 import { MaterialCommunityIcons } from 'react-native-vector-icons';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import differenceInMinutes from 'date-fns/differenceInMinutes';
-import FormatDate from '../functions/FormatDate';
+import format from "date-fns/format";
+import FormatDateTime from '../functions/FormatDateTime';
 import FormatMinutes from '../functions/FormatMinutes';
 import Rating from './Rating';
 
@@ -14,13 +15,14 @@ export default function AddEntry(props) {
   const [showRating, setShowRating] = useState(false);
   const [entry, setEntry] = useState(
     {
+      entryDate: format(new Date(), "yyyy-LL-dd"),
       bedTime: new Date(),
       sleepDelay: '0',
       awakeTime: '0',
       sleepEnd: new Date(),
       sleepTime: 0,
       comment: '',
-      quality: 0  
+      quality: 0
     });
   
   // Temporary variables
@@ -72,9 +74,10 @@ export default function AddEntry(props) {
     let sleep = differenceInMinutes(entry.sleepEnd, entry.bedTime);
     sleep = sleep - parseInt(entry.sleepDelay) - parseInt(entry.awakeTime);
     setEntry({...entry, sleepTime: sleep});
+
   };
 
-  const saveEntry = () => {
+  const addEntry = () => {
     props.saveEntry(entry);
   };
 
@@ -87,7 +90,7 @@ export default function AddEntry(props) {
 
         <Rating entry={entry} setEntry={setEntry} />
 
-        <TouchableOpacity style={styles.button} onPress={() => saveEntry()}>
+        <TouchableOpacity style={styles.button} onPress={() => addEntry()}>
           <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>Save</Text>
         </TouchableOpacity>
       </View> : 
@@ -96,7 +99,7 @@ export default function AddEntry(props) {
         <View style={styles.section}>
           <Text style={styles.heading}>When did you get into bed?</Text>
           <TouchableOpacity onPress={() => {type = "bedTime"; showDateTimePicker(pickerMode);}}>
-            <Text style={{fontSize: 20}}><FormatDate value={entry.bedTime} /></Text>
+            <Text style={{fontSize: 20}}><FormatDateTime value={entry.bedTime} /></Text>
           </TouchableOpacity>
         </View>
 
@@ -149,7 +152,7 @@ export default function AddEntry(props) {
         <View style={styles.section}>
           <Text style={styles.heading}>When did you wake up for the last time?</Text>
           <TouchableOpacity onPress={() => {type = "sleepEnd"; showDateTimePicker(pickerMode);}}>
-            <Text style={{fontSize: 20}}><FormatDate value={entry.sleepEnd} /></Text>
+            <Text style={{fontSize: 20}}><FormatDateTime value={entry.sleepEnd} /></Text>
           </TouchableOpacity>
         </View>
 
@@ -169,8 +172,8 @@ export default function AddEntry(props) {
 
         <TouchableOpacity style={styles.button} 
           onPress={() => {
+            calculateSleep();
             setShowRating(true);
-            calculateSleep()
             }}>
             <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>Continue</Text>
         </TouchableOpacity>
