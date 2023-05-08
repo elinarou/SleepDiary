@@ -10,16 +10,20 @@ export default function StackedBarCharts(props) {
   const [sleepTime, setSleepTime] = useState(initialValues);
   const [sleepDelay, setSleepDelay] = useState(initialValues);
   const [awakeTime, setAwakeTime] = useState(initialValues);
+  const [start, setStart] = useState('');
+  const [end, setEnd] = useState('');
 
   const fillChart = () => {
     let sleepTimeArr = [];
     let sleepDelayArr = [];
     let awakeTimeArr = [];
+    let period = [];
     
     props.entries.map((item) => {
       sleepTimeArr.push(item.sleepTime);
       sleepDelayArr.push(item.sleepDelay);
       awakeTimeArr.push(item.awakeTime);
+      period.push(item.sleepEnd);
 
     });
     console.log(sleepTimeArr);
@@ -29,6 +33,8 @@ export default function StackedBarCharts(props) {
     setSleepTime(sleepTimeArr);
     setSleepDelay(sleepDelayArr);
     setAwakeTime(awakeTimeArr);
+    setStart(period[0]);
+    setEnd(period[6]);
   };
 
   const stackData = [
@@ -95,14 +101,21 @@ export default function StackedBarCharts(props) {
           <Text>SleepTime: {sleepTime[0]}</Text>
           <Text>SleepDelay: {sleepDelay[0]}</Text>
           <Text>AwakeTime: {awakeTime[0]}</Text>
+          <Text>Start: {start}</Text>
+          <Text>End: {end}</Text>
           <BarChart
             width={340}
             height={340}
             rotateLabel
             noOfSections={15}
+            maxValue={14}
             stackData={stackData}
           />
-          <ChartControls fillChart={fillChart} />
+          <ChartControls 
+            fillChart={fillChart}
+            start={start}
+            end={end}
+          />
         </View>
     );
 };

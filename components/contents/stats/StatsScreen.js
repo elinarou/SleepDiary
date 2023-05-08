@@ -7,14 +7,10 @@ import StackedBarCharts from './StackedBarCharts';
 
 export default function StatsScreen() {
   const [entries, setEntries] = useState([]);
-  const [start, setStart] = useState();
-  const [end, setEnd] = useState();
 
   useEffect(() => {
     const entriesRef = query(ref(database, 'entries/'), 
       orderByChild('entryDate'),
-      startAt('2023-05-01'),
-      endAt('2023-05-07'),
       limitToLast(7)
     );
     onValue(entriesRef, (snapshot) => {
