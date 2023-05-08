@@ -7,7 +7,7 @@ import FormatMinutes from '../../functions/FormatMinutes';
 export default function SleepCalendarDay(props) {
 
 
-  const qualityWord = (quality) => {
+  const translateQuality = (quality) => {
     switch (quality) {
       case 1:
         return 'Poor';
@@ -26,7 +26,7 @@ export default function SleepCalendarDay(props) {
 
   return (
     <View style={styles.container}>
-      {props.showEntry &&
+      {props.showEntry ?
       <FlatList
         keyExtractor={(item, index) => index.toString()}
         renderItem={({item}) => 
@@ -36,11 +36,13 @@ export default function SleepCalendarDay(props) {
             <Text style={styles.text}>Sleep time: <FormatMinutes value={item.sleepTime} /></Text>
             <Text style={styles.text}>Sleep latency: {item.sleepDelay} min</Text>
             <Text style={styles.text}>Awake time: {item.awakeTime} min</Text>
-            <Text style={styles.text}>Sleep quality: {qualityWord(item.quality)}</Text>
+            <Text style={styles.text}>Sleep quality: {translateQuality(item.quality)}</Text>
             <Text style={styles.text}>Comment: {item.comment}</Text>
           </View>}
         data={props.entries}
-      />}
+      />:
+      <Text style={styles.heading}>No entry</Text>
+      }
     </View>
   );
 };

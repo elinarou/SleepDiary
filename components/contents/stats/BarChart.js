@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { BarChart } from "react-native-gifted-charts";
-import ChartControls from './ChartControls';
+import CalculateAvgMin from '../../functions/CalculateAvgMin';
+import CalculateAvgHour from '../../functions/CalculateAvgHour';
+import FormatDate from '../../functions/FormatDate';
 
 
 let initialValues = [0, 0, 0, 0, 0, 0, 0];
 
-export default function StackedBarCharts(props) {
+export default function BarCharts(props) {
+  const [showStats, setShowStats] = useState(false);
   const [sleepTime, setSleepTime] = useState(initialValues);
   const [sleepDelay, setSleepDelay] = useState(initialValues);
   const [awakeTime, setAwakeTime] = useState(initialValues);
-  const [start, setStart] = useState('');
-  const [end, setEnd] = useState('');
+  const [weekday, setWeekday] = useState(initialValues);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
   const fillChart = () => {
     let sleepTimeArr = [];
@@ -26,15 +30,38 @@ export default function StackedBarCharts(props) {
       period.push(item.sleepEnd);
 
     });
-    console.log(sleepTimeArr);
-    console.log(sleepDelayArr);
-    console.log(awakeTimeArr);
-    
-    setSleepTime(sleepTimeArr);
-    setSleepDelay(sleepDelayArr);
-    setAwakeTime(awakeTimeArr);
-    setStart(period[0]);
-    setEnd(period[6]);
+
+    if (sleepTimeArr.length < 7) {
+      alert('Make entries for 7 days to see stats.');
+      setShowStats(false);
+    }
+    else {
+      setSleepTime(sleepTimeArr);
+      setSleepDelay(sleepDelayArr);
+      setAwakeTime(awakeTimeArr);
+      setWeekday(period);
+      setStartDate(period[0]);
+      setEndDate(period[6]);
+    };
+  };
+
+  const translateDay = (day) => {
+    switch (day) {
+      case 0:
+        return 'Sun';
+      case 1:
+        return 'Mon';
+      case 2:
+        return 'Tue';
+      case 3:
+        return 'Wed';
+      case 4:
+        return 'Thu';
+      case 5:
+        return 'Fri';
+      case 6:
+        return 'Sat';
+    };
   };
 
   const stackData = [
@@ -44,7 +71,7 @@ export default function StackedBarCharts(props) {
           {value: sleepDelay[0] / 60, color: '#4ABFF4', marginBottom: 2},
           {value: awakeTime[0] / 60, color: '#4ABFF4', marginBottom: 2},
         ],
-        //label: 'Mon',
+        label: translateDay(new Date(weekday[0]).getDay()),
       },
         {
         stacks: [
@@ -52,7 +79,7 @@ export default function StackedBarCharts(props) {
           {value: sleepDelay[1] / 60, color: '#4ABFF4', marginBottom: 2},
           {value: awakeTime[1] / 60, color: '#4ABFF4', marginBottom: 2},
         ],
-        //label: 'Tue',
+        label: translateDay(new Date(weekday[1]).getDay()),
       },
       {
         stacks: [
@@ -60,7 +87,7 @@ export default function StackedBarCharts(props) {
           {value: sleepDelay[2] / 60, color: '#4ABFF4', marginBottom: 2},
           {value: awakeTime[2] / 60, color: '#4ABFF4', marginBottom: 2},
         ],
-        //label: 'Wed',
+        label: translateDay(new Date(weekday[2]).getDay()),
       },
       {
         stacks: [
@@ -68,7 +95,7 @@ export default function StackedBarCharts(props) {
           {value: sleepDelay[3] / 60, color: '#4ABFF4', marginBottom: 2},
           {value: awakeTime[3] / 60, color: '#4ABFF4', marginBottom: 2},
         ],
-        //label: 'Thu',
+        label: translateDay(new Date(weekday[3]).getDay()),
       },
       {
         stacks: [
@@ -76,7 +103,7 @@ export default function StackedBarCharts(props) {
           {value: sleepDelay[4] / 60, color: '#4ABFF4', marginBottom: 2},
           {value: awakeTime[4] / 60, color: '#4ABFF4', marginBottom: 2},
         ],
-        //label: 'Fri',
+        label: translateDay(new Date(weekday[4]).getDay()),
       },
       {
         stacks: [
@@ -84,7 +111,7 @@ export default function StackedBarCharts(props) {
           {value: sleepDelay[5] / 60, color: '#4ABFF4', marginBottom: 2},
           {value: awakeTime[5] / 60, color: '#4ABFF4', marginBottom: 2},
         ],
-        //label: 'Sat',
+        label: translateDay(new Date(weekday[5]).getDay()),
       },
        {
         stacks: [
@@ -92,30 +119,40 @@ export default function StackedBarCharts(props) {
           {value: sleepDelay[6] / 60, color: '#4ABFF4', marginBottom: 2},
           {value: awakeTime[6] / 60, color: '#4ABFF4', marginBottom: 2},
         ],
-        //label: 'Sun',
+        label: translateDay(new Date(weekday[6]).getDay()),
       },
     ];
 
     return(
         <View style={styles.container}>
-          <Text>SleepTime: {sleepTime[0]}</Text>
-          <Text>SleepDelay: {sleepDelay[0]}</Text>
-          <Text>AwakeTime: {awakeTime[0]}</Text>
-          <Text>Start: {start}</Text>
-          <Text>End: {end}</Text>
-          <BarChart
-            width={340}
-            height={340}
-            rotateLabel
-            noOfSections={15}
-            maxValue={14}
-            stackData={stackData}
-          />
-          <ChartControls 
-            fillChart={fillChart}
-            start={start}
-            end={end}
-          />
+          {showStats ? // Conditional rendering, 1. & 2.
+          // 1. Stats
+          <View>
+            <Text style={styles.heading}>
+              <FormatDate value={new Date(startDate)} /> - <FormatDate value={new Date(endDate)} />
+            </Text>
+            <BarChart
+              width={340}
+              height={340}
+              noOfSections={15}
+              maxValue={13}
+              stackData={stackData}
+            />
+            <View style={styles.stats}>
+              <Text style={styles.text}>Sleep time (avg): <CalculateAvgHour arr={sleepTime} /></Text>
+              <Text style={styles.text}>Sleep latency (avg): <CalculateAvgMin arr={sleepDelay} /></Text>
+              <Text style={styles.text}>Awake time (avg): <CalculateAvgMin arr={awakeTime} /></Text>
+            </View>
+          </View>
+          : // 2. Initial rendering
+          <TouchableOpacity style={styles.button} 
+            onPress={() => {
+              fillChart();
+              setShowStats(true);
+            }}>
+            <Text style={styles.heading}>Show stats</Text>
+          </TouchableOpacity>
+          }
         </View>
     );
 };
@@ -128,6 +165,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
+  stats: {
+    padding: 5,
+  },
+
   button: {
     padding: 5,
     backgroundColor: 'gray'
@@ -138,6 +179,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 15,
     marginBottom: 5,
+  },
+
+  text: {
+    fontSize: 20
   },
 });
   

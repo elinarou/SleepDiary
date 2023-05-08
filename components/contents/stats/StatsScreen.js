@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
-import { ref, onValue, query, orderByChild, startAt, endAt, limitToLast } from 'firebase/database';
+import { ref, onValue, query, orderByChild, endAt, limitToLast } from 'firebase/database';
 import { database } from '../../database/FirebaseConfig';
-import StackedBarCharts from './StackedBarCharts';
+import BarCharts from './BarChart';
+import format from 'date-fns/format';
 
 
 export default function StatsScreen() {
@@ -18,13 +19,13 @@ export default function StatsScreen() {
         const data = snapshot.val();
         setEntries(Object.values(data));
       }
-    })
+    });
   }, []);
 
 
   return (
     <View style={styles.container}>
-      <StackedBarCharts entries={entries} />  
+      <BarCharts entries={entries} />  
     </View>
   );    
 }
