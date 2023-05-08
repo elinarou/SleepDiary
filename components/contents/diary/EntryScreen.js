@@ -14,8 +14,8 @@ export default function EntryScreen() {
       ref(database, 'entries/'), { 
         'entryDate': entry.entryDate,
         'bedTime': entry.bedTime.toString(), 
-        'sleepDelay': entry.sleepDelay,
-        'awakeTime': entry.awakeTime,
+        'sleepDelay': parseInt(entry.sleepDelay),
+        'awakeTime': parseInt(entry.awakeTime),
         'sleepEnd': entry.sleepEnd.toString(),
         'sleepTime': entry.sleepTime,
         'comment': entry.comment,
