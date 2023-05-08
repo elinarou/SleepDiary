@@ -64,8 +64,8 @@ export default function AddEntry(props) {
       onChange,
       mode: currentMode,
       is24Hour: true,
-      minimumDate: yesterday,
-      maximumDate: new Date()
+/*       minimumDate: yesterday,
+      maximumDate: new Date() */
     });
   };
 
