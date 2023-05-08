@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { ref, onValue, query, orderByChild, startAt, endAt, limitToLast } from 'firebase/database';
 import { database } from '../../database/FirebaseConfig';
 import StackedBarCharts from './StackedBarCharts';
-import ChartControls from './ChartControls';
 
 
 export default function StatsScreen() {
@@ -30,7 +29,6 @@ export default function StatsScreen() {
   return (
     <View style={styles.container}>
       <StackedBarCharts entries={entries} />  
-      <ChartControls setStart={setStart} setEnd={setEnd} />
     </View>
   );    
 }

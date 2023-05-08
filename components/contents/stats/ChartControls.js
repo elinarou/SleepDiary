@@ -11,8 +11,7 @@ export default function ChartControls(props) {
       <View style={styles.buttons}>
         <TouchableOpacity style={styles.button}
           onPress={() => {
-            props.setStart();
-            props.setEnd();
+            props.fillChart();
           }}>
           <AntDesign 
             name={'left'}
@@ -22,8 +21,7 @@ export default function ChartControls(props) {
         <Text style={{ fontSize: 26 }}>{} - {}</Text>
         <TouchableOpacity style={styles.button}
           onPress={() => {
-            props.setStart();
-            props.setEnd();
+            props.fillChart();
           }}>
           <AntDesign 
             name={'right'}
