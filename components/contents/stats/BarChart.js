@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { BarChart } from 'react-native-gifted-charts';
-import CalculateAvgMin from '../../functions/CalculateAvgMin';
+import CalculateAvg from '../../functions/CalculateAvg';
 import CalculateAvgHour from '../../functions/CalculateAvgHour';
 import FormatDate from '../../functions/FormatDate';
 import { Feather } from 'react-native-vector-icons'; 
@@ -14,6 +14,7 @@ export default function BarCharts(props) {
   const [sleepTime, setSleepTime] = useState(initialValues);
   const [sleepDelay, setSleepDelay] = useState(initialValues);
   const [awakeTime, setAwakeTime] = useState(initialValues);
+  const [quality, setQuality] = useState(initialValues);
   const [weekday, setWeekday] = useState(initialValues);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -22,12 +23,14 @@ export default function BarCharts(props) {
     let sleepTimeArr = [];
     let sleepDelayArr = [];
     let awakeTimeArr = [];
+    let qualityArr = [];
     let period = [];
     
     props.entries.map((item) => {
       sleepTimeArr.push(item.sleepTime);
       sleepDelayArr.push(item.sleepDelay);
       awakeTimeArr.push(item.awakeTime);
+      qualityArr.push(item.quality);
       period.push(item.sleepEnd);
 
     });
@@ -40,6 +43,7 @@ export default function BarCharts(props) {
       setSleepTime(sleepTimeArr);
       setSleepDelay(sleepDelayArr);
       setAwakeTime(awakeTimeArr);
+      setQuality(qualityArr);
       setWeekday(period);
       setStartDate(period[0]);
       setEndDate(period[6]);
@@ -141,11 +145,12 @@ export default function BarCharts(props) {
             />
             <View style={styles.stats}>
               <Text style={styles.text}>Sleep time (avg): <CalculateAvgHour arr={sleepTime} /></Text>
-              <Text style={styles.text}>Sleep latency (avg): <CalculateAvgMin arr={sleepDelay} /></Text>
-              <Text style={styles.text}>Awake time (avg): <CalculateAvgMin arr={awakeTime} /></Text>
+              <Text style={styles.text}>Sleep latency (avg): <CalculateAvg arr={sleepDelay} /> min</Text>
+              <Text style={styles.text}>Awake time (avg): <CalculateAvg arr={awakeTime} /> min</Text>
+              <Text style={styles.text}>Sleep quality (avg): <CalculateAvg arr={quality} />/5</Text>
             </View>
           </View>
-          : // 2. Initial rendering
+          : // 2. Initial rendering: Refresh button
           <TouchableOpacity style={styles.button} 
             onPress={() => {
               fillChart();
