@@ -31,7 +31,10 @@ export default function DiaryScreen({ navigation }) {
   }, []);
 
   const testEntryStatus = () => {
-    if (latest[0].entryDate == today) {
+    if (!showLatest) {
+      navigation.navigate("Entry");
+    }
+    else if (latest[0].entryDate == today) {
       Alert.alert('', 'You have already made an entry today.');
     }
     else {
