@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, StyleSheet } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather } from '@expo/vector-icons';  
 import StackNavigation from './StackNavigation';
@@ -32,7 +32,7 @@ const Tab = createBottomTabNavigator();
 export default function TabNavigation() {
   return (
     // Tab navigator
-    <NavigationContainer>
+    <NavigationContainer style={styles.container}>
       <Tab.Navigator screenOptions={screenOptions}>
         <Tab.Screen name="Diary" component={StackNavigation} options={{ headerShown: false }} />
         <Tab.Screen name="Calendar" component={CalendarScreen} />
@@ -42,3 +42,13 @@ export default function TabNavigation() {
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+  

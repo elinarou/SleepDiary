@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text, Alert } from 'react-native';
 import { onValue, ref, query, limitToLast, orderByChild } from 'firebase/database';
-import { database } from '../../firebase/FirebaseConfig';
+import { database } from '../../database/FirebaseConfig';
 import { UserContext } from '../../context/UserContext';
 import LatestEntry from './LatestEntry';
 import { Feather } from 'react-native-vector-icons';

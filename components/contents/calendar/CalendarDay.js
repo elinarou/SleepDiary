@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { ref, query, equalTo, orderByChild, remove, onValue } from 'firebase/database';
-import { database } from '../../firebase/FirebaseConfig';
+import { database } from '../../database/FirebaseConfig';
 import FormatDateTime from '../../functions/FormatDateTime';
 import FormatMinutes from '../../functions/FormatMinutes';
 

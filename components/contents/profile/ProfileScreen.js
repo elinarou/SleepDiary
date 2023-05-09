@@ -46,6 +46,14 @@ export default function ProfileScreen() {
         placeholder="Email"
         maxLength={250}
       />
+      <Text style={styles.heading}>Password</Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={text => setUserDetails({...userDetails, password: text})}
+        value={userDetails.password}
+        placeholder="Password"
+        maxLength={250}
+      />
       <Text style={styles.heading}>Sleep time goal</Text>
       <TextInput
         style={styles.input}

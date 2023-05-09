@@ -6,6 +6,7 @@ import { getAuth } from "firebase/auth";
 const firebaseConfig = {
   apiKey: "AIzaSyD9ESbasgkPl9Zo9nwdU5JhP_xIwKD1S4Q",
   authDomain: "sleepdiary-22a6f.firebaseapp.com",
+  databaseURL: "https://sleepdiary-22a6f-default-rtdb.firebaseio.com",
   projectId: "sleepdiary-22a6f",
   storageBucket: "sleepdiary-22a6f.appspot.com",
   messagingSenderId: "1004386482840",

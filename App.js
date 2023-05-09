@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native';
-import TabNavigation from './components/navigation/TabNavigation';
 import { UserProvider } from './components/context/UserContext';
+import AuthScreen from './components/authentication/AuthScreen';
 
 
 export default function App() {
@@ -8,7 +8,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <UserProvider>
-        <TabNavigation />
+        <AuthScreen />
       </UserProvider>
     </View>
   );
