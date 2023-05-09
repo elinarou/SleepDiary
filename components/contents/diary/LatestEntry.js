@@ -1,33 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
-import { onValue, ref, query, limitToLast } from 'firebase/database';
-import { database } from '../../database/FirebaseConfig';
 import FormatDateTime from '../../functions/FormatDateTime';
 import FormatMinutes from '../../functions/FormatMinutes';
 
 
-export default function LatestEntry() {
-  const [showLatest, setShowLatest] = useState(false);
-  const [latest, setLatest] = useState([]);
-
-  useEffect(() => {
-    const entriesRef = query(ref(database, 'entries/'), limitToLast(1));
-    onValue(entriesRef, (snapshot) => {
-      if (snapshot.val() !== null) {
-        const data = snapshot.val();
-        setLatest(Object.values(data));
-        setShowLatest(true);
-      } 
-      else {
-        setShowLatest(false);
-      };
-    })
-  }, []);
-
+export default function LatestEntry(props) {
 
   return (
     <View style={styles.container}>
-      {showLatest ?
+      {props.showLatest ?
         <View>
           <Text style={styles.heading}>Your latest entry</Text>
           <FlatList
@@ -44,7 +25,7 @@ export default function LatestEntry() {
                 <Text>Quality: {item.quality}</Text>
                 <Text>Comment: {item.comment}</Text>
               </View>}
-            data={latest}
+            data={props.latest}
           />
         </View>
         : <Text style={styles.heading}>Start your Sleep Diary</Text> 
