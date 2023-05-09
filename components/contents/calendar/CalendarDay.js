@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
-import { StyleSheet, View, Text, FlatList } from 'react-native';
-import { ref, query, equalTo, orderByChild, remove, onValue, child, key, limitToLast } from 'firebase/database';
-import { database } from '../../database/FirebaseConfig';
+import React from 'react';
+import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { ref, query, equalTo, orderByChild, remove, onValue } from 'firebase/database';
+import { database } from '../../firebase/FirebaseConfig';
 import FormatDateTime from '../../functions/FormatDateTime';
 import FormatMinutes from '../../functions/FormatMinutes';
-import { TouchableOpacity } from 'react-native';
 
 
 export default function SleepCalendarDay(props) {
