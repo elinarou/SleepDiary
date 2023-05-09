@@ -27,7 +27,7 @@ export default function EntryScreen() {
     })  
     .catch((error) => {
       // Save failed
-      alert(error);
+      Alert.alert('', error);
     });
   };
 

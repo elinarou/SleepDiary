@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
-import { BarChart } from "react-native-gifted-charts";
+import { BarChart } from 'react-native-gifted-charts';
 import CalculateAvgMin from '../../functions/CalculateAvgMin';
 import CalculateAvgHour from '../../functions/CalculateAvgHour';
 import FormatDate from '../../functions/FormatDate';
+import { Feather } from 'react-native-vector-icons'; 
 
 
 let initialValues = [0, 0, 0, 0, 0, 0, 0];
@@ -150,7 +151,7 @@ export default function BarCharts(props) {
               fillChart();
               setShowStats(true);
             }}>
-            <Text style={styles.heading}>Show stats</Text>
+            <Feather name={'refresh-cw'} size={80} />
           </TouchableOpacity>
           }
         </View>
@@ -171,7 +172,8 @@ const styles = StyleSheet.create({
 
   button: {
     padding: 5,
-    backgroundColor: 'gray'
+    backgroundColor: 'gray',
+    borderRadius: 20
   },
 
   heading: {

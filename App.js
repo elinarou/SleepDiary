@@ -1,11 +1,15 @@
 import { StyleSheet, View } from 'react-native';
 import TabNavigation from './components/navigation/TabNavigation';
+import { UserProvider } from './components/context/UserContext';
+
 
 export default function App() {
 
   return (
     <View style={styles.container}>
-      <TabNavigation />
+      <UserProvider>
+        <TabNavigation />
+      </UserProvider>
     </View>
   );
 }

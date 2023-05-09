@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { Tooltip } from 'react-native-elements';
 import { MaterialCommunityIcons } from 'react-native-vector-icons';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
@@ -64,8 +64,8 @@ export default function AddEntry(props) {
       onChange,
       mode: currentMode,
       is24Hour: true,
-/*       minimumDate: yesterday,
-      maximumDate: new Date() */
+      minimumDate: yesterday,
+      maximumDate: new Date()
     });
   };
 
@@ -73,8 +73,13 @@ export default function AddEntry(props) {
   const calculateSleep = () => {
     let sleep = differenceInMinutes(entry.sleepEnd, entry.bedTime);
     sleep = sleep - parseInt(entry.sleepDelay) - parseInt(entry.awakeTime);
-    setEntry({...entry, sleepTime: sleep});
-
+    if (sleep < 0) {
+      Alert.alert('', `Your sleep time ${(sleep / 60).toFixed(1)} h is invalid. Make changes to your entry.`);
+    }
+    else {
+      setEntry({...entry, sleepTime: sleep});
+      setShowRating(true);
+    };
   };
 
   const addEntry = () => {
@@ -172,10 +177,7 @@ export default function AddEntry(props) {
         </View>
 
         <TouchableOpacity style={styles.button} 
-          onPress={() => {
-            calculateSleep();
-            setShowRating(true);
-            }}>
+          onPress={() => calculateSleep()}>
             <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>Continue</Text>
         </TouchableOpacity>
       </View>
