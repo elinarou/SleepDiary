@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
-import { ref, onValue, query, orderByChild, endAt, limitToLast } from 'firebase/database';
+import { StyleSheet, View } from 'react-native';
+import { ref, onValue, query, orderByChild, limitToLast } from 'firebase/database';
 import { database } from '../../database/FirebaseConfig';
 import BarCharts from './BarChart';
-import format from 'date-fns/format';
 
 
 export default function StatsScreen() {
