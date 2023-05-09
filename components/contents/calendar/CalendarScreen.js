@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import CalendarPicker from './CalendarPicker';
 import CalendarDay from './CalendarDay';
 import { onValue, ref, query, orderByChild, equalTo } from 'firebase/database';
-import { database } from '../../database/FirebaseConfig';
+import { database } from '../../firebase/FirebaseConfig';
 
 
 export default function CalendarScreen() {
