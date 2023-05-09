@@ -61,9 +61,6 @@ export default function ProfileScreen() {
       <TouchableOpacity style={styles.button}>
         <Text style={styles.heading}>Save</Text>
       </TouchableOpacity>
-
-      <Text>Nimi: {userDetails.username} email: {userDetails.email}</Text>
-      <Text>Sleep: {userDetails.sleepGoal} Awakening: {userDetails.awakeningGoal.toString()}</Text>
     </View>
   );
 };
