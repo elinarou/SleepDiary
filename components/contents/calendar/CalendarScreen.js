@@ -11,8 +11,12 @@ export default function CalendarScreen() {
   const [entries, setEntries] = useState([]);
   const [showEntry, setShowEntry] = useState(false);
 
+  // Searches entries based on CalendarPicker
   useEffect(() => {
-    const entriesRef = query(ref(database, 'entries/'), orderByChild('entryDate'), equalTo(selectedDate));
+    const entriesRef = query(ref(database, 'entries/'), 
+      orderByChild('entryDate'), 
+      equalTo(selectedDate));
+
     onValue(entriesRef, (snapshot) => {
       if (snapshot.val() != null) {
         const data = snapshot.val();
@@ -27,8 +31,15 @@ export default function CalendarScreen() {
 
   return (
     <View style={styles.container}>
-      <CalendarPicker selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
-      <CalendarDay selectedDate={selectedDate} entries={entries} showEntry={showEntry}/>
+      <CalendarPicker 
+        selectedDate={selectedDate} 
+        setSelectedDate={setSelectedDate} 
+      />
+      <CalendarDay 
+        selectedDate={selectedDate} 
+        entries={entries} 
+        showEntry={showEntry} 
+      />
     </View>
   );
 }
