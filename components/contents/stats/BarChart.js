@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { BarChart } from 'react-native-gifted-charts';
 import CalculateAvg from '../../functions/CalculateAvg';
 import CalculateAvgHour from '../../functions/CalculateAvgHour';
