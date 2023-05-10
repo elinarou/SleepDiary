@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { BarChart } from 'react-native-gifted-charts';
 import CalculateAvg from '../../functions/CalculateAvg';
 import CalculateAvgHour from '../../functions/CalculateAvgHour';
@@ -36,7 +36,7 @@ export default function BarCharts(props) {
     });
 
     if (sleepTimeArr.length < 7) {
-      alert('Make entries for 7 days to see stats.');
+      Alert.alert('', 'Make entries for 7 days to see stats.');
       setShowStats(false);
     }
     else {
@@ -72,57 +72,57 @@ export default function BarCharts(props) {
   const stackData = [
       {
         stacks: [
-          {value: sleepTime[0] / 60, color: 'orange'},
-          {value: sleepDelay[0] / 60, color: '#4ABFF4', marginBottom: 2},
-          {value: awakeTime[0] / 60, color: '#4ABFF4', marginBottom: 2},
+          {value: sleepTime[0] / 60, color: '#E4D192'},
+          {value: sleepDelay[0] / 60, color: '#AF7AB3', marginBottom: 1},
+          {value: awakeTime[0] / 60, color: '#80558C', marginBottom: 1},
         ],
         label: translateDay(new Date(weekday[0]).getDay()),
       },
         {
         stacks: [
-          {value: sleepTime[1] / 60, color: 'orange'},
-          {value: sleepDelay[1] / 60, color: '#4ABFF4', marginBottom: 2},
-          {value: awakeTime[1] / 60, color: '#4ABFF4', marginBottom: 2},
+          {value: sleepTime[1] / 60, color: '#E4D192'},
+          {value: sleepDelay[1] / 60, color: '#AF7AB3', marginBottom: 1},
+          {value: awakeTime[1] / 60, color: '#80558C', marginBottom: 1},
         ],
         label: translateDay(new Date(weekday[1]).getDay()),
       },
       {
         stacks: [
-          {value: sleepTime[2] / 60, color: 'orange'},
-          {value: sleepDelay[2] / 60, color: '#4ABFF4', marginBottom: 2},
-          {value: awakeTime[2] / 60, color: '#4ABFF4', marginBottom: 2},
+          {value: sleepTime[2] / 60, color: '#E4D192'},
+          {value: sleepDelay[2] / 60, color: '#AF7AB3', marginBottom: 1},
+          {value: awakeTime[2] / 60, color: '#80558C', marginBottom: 1},
         ],
         label: translateDay(new Date(weekday[2]).getDay()),
       },
       {
         stacks: [
-          {value: sleepTime[3] / 60, color: 'orange'},
-          {value: sleepDelay[3] / 60, color: '#4ABFF4', marginBottom: 2},
-          {value: awakeTime[3] / 60, color: '#4ABFF4', marginBottom: 2},
+          {value: sleepTime[3] / 60, color: '#E4D192'},
+          {value: sleepDelay[3] / 60, color: '#AF7AB3', marginBottom: 1},
+          {value: awakeTime[3] / 60, color: '#80558C', marginBottom: 1},
         ],
         label: translateDay(new Date(weekday[3]).getDay()),
       },
       {
         stacks: [
-          {value: sleepTime[4] / 60, color: 'orange'},
-          {value: sleepDelay[4] / 60, color: '#4ABFF4', marginBottom: 2},
-          {value: awakeTime[4] / 60, color: '#4ABFF4', marginBottom: 2},
+          {value: sleepTime[4] / 60, color: '#E4D192'},
+          {value: sleepDelay[4] / 60, color: '#AF7AB3', marginBottom: 1},
+          {value: awakeTime[4] / 60, color: '#80558C', marginBottom: 1},
         ],
         label: translateDay(new Date(weekday[4]).getDay()),
       },
       {
         stacks: [
-          {value: sleepTime[5] / 60, color: 'orange'},
-          {value: sleepDelay[5] / 60, color: '#4ABFF4', marginBottom: 2},
-          {value: awakeTime[5] / 60, color: '#4ABFF4', marginBottom: 2},
+          {value: sleepTime[5] / 60, color: '#E4D192'},
+          {value: sleepDelay[5] / 60, color: '#AF7AB3', marginBottom: 1},
+          {value: awakeTime[5] / 60, color: '#80558C', marginBottom: 1},
         ],
         label: translateDay(new Date(weekday[5]).getDay()),
       },
        {
         stacks: [
-          {value: sleepTime[6] / 60, color: 'orange'},
-          {value: sleepDelay[6] / 60, color: '#4ABFF4', marginBottom: 2},
-          {value: awakeTime[6] / 60, color: '#4ABFF4', marginBottom: 2},
+          {value: sleepTime[6] / 60, color: '#E4D192'},
+          {value: sleepDelay[6] / 60, color: '#AF7AB3', marginBottom: 1},
+          {value: awakeTime[6] / 60, color: '#80558C', marginBottom: 1},
         ],
         label: translateDay(new Date(weekday[6]).getDay()),
       },
@@ -136,12 +136,22 @@ export default function BarCharts(props) {
             <Text style={styles.heading}>
               <FormatDate value={new Date(startDate)} /> - <FormatDate value={new Date(endDate)} />
             </Text>
+            <Text style={{ paddingLeft: 16 }}>h</Text>
             <BarChart
               width={340}
               height={340}
               noOfSections={15}
               maxValue={13}
               stackData={stackData}
+              leftShiftForTooltip={35}
+              renderTooltip={(item, index) => {
+                return (
+                  <View style={styles.tooltips}>
+                    <Text style={styles.tooltip1}>Sleep time</Text>
+                    <Text style={styles.tooltip2}>Sleep latency</Text>
+                    <Text style={styles.tooltip3}>Awake time</Text>
+                  </View>);
+              }}
             />
             <View style={styles.stats}>
               <Text style={styles.text}>Sleep time (avg): <CalculateAvgHour arr={sleepTime} /></Text>
@@ -172,13 +182,18 @@ const styles = StyleSheet.create({
   },
 
   stats: {
-    padding: 5,
+    padding: 15,
+    marginLeft: 18,
+    marginTop: 10,
+    borderWidth: 1,
+    borderColor: '#E4D192',
+    borderRadius: 20
   },
 
   button: {
     padding: 5,
-    backgroundColor: 'gray',
-    borderRadius: 20
+    backgroundColor: '#AF7AB3',
+    borderRadius: 50
   },
 
   heading: {
@@ -186,10 +201,31 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 15,
     marginBottom: 5,
+    alignSelf: 'center'
   },
 
   text: {
-    fontSize: 20
+    fontSize: 18
   },
+  
+  tooltips: {
+    borderWidth: 1,
+    borderColor: '#fff'
+  },
+
+  tooltip1: {
+    backgroundColor: '#E4D192',
+    paddingHorizontal: 5,
+  },
+
+  tooltip2: {
+    backgroundColor: '#AF7AB3',
+    paddingHorizontal: 5,
+  },
+
+  tooltip3: {
+    backgroundColor: '#80558C',
+    paddingHorizontal: 5,
+  }
 });
   

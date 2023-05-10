@@ -60,40 +60,40 @@ export default function DiaryScreen({ navigation }) {
 
     const diff = differenceInMinutes(tomorrowGoal, now);
 
-    if ((diff - sleep * 60) < 0) {
-      const hours = Math.floor((diff - sleep * 60) / 60);
-      const minutes = (diff - sleep * 60) % 60;
-      setMessage(`Bed time was ${hours} h and ${minutes} min ago.`)
-    }
-    else if ((diff - sleep * 60) == 0) {
+    if ((diff - sleep * 60) == 0) {
       setMessage(`Now is time to go to bed.`)
     }
     else {
       const hours = Math.floor((diff - sleep * 60) / 60);
       const minutes = (diff - sleep * 60) % 60;
-      setMessage(`${hours} h and ${minutes} min to bed time.`)
+      setMessage(`${hours} h ${minutes} min to bed time.`)
     };
   };
 
   return (
     <View style={styles.container}>
+
       <LatestEntry showLatest={showLatest} latest={latest} />
 
-      {userDetails.showGoals && // Shows sleep goals
-        <View>
+      {userDetails.showGoals && // Shows goals, if enabled in profile
+        <View style={styles.section}>
           <Text style={styles.heading}>Goals</Text>
-          <Text style={styles.text}>Sleep time: {userDetails.sleepGoal} h</Text>
-          <Text style={styles.text}>Tomorrow's wake-up: <FormatTime value={userDetails.awakeningGoal} /></Text>
-          <TouchableOpacity style={styles.row} onPress={() => calculateGoals()}>
-            <Text style={styles.text}>Status: {message}  </Text>
-            <Feather name={'refresh-cw'} size={20} />
-          </TouchableOpacity>
+
+          <View style={styles.listcontainer}>
+            <Text style={styles.text}>Sleep time: {userDetails.sleepGoal} h</Text>
+            <Text style={styles.text}>Tomorrow's wake-up: <FormatTime value={userDetails.awakeningGoal} /></Text>  
+            <TouchableOpacity style={styles.row} onPress={() => calculateGoals()}>
+              <Text style={styles.text}>Status: {message}  </Text>
+              <Feather style={styles.icon} name={'refresh-cw'} size={20} />
+            </TouchableOpacity>
+          </View>
+
         </View>
       }
 
       <TouchableOpacity style={styles.button} 
         onPress={() => testEntryStatus()}>
-          <Text style={styles.heading}>New entry<Feather name={'plus-circle'} size={25} /></Text>
+          <Text style={styles.buttonText}>New entry</Text>
       </TouchableOpacity>
     </View>
   ); 
@@ -106,26 +106,63 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  
-  button: {
-    flex: 1, 
-    alignItems: 'center',
-    justifyContent: 'center'
+
+  section: {
+    flex: 1,
+    backgroundColor: '#fff',
   },
 
   heading: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 15,
+    marginTop: 5,
     marginBottom: 5,
+    alignSelf: 'center',
+    backgroundColor: '#CBA0AE',
+    paddingHorizontal: 155,
+    paddingVertical: 10,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20
+  },
+
+  listcontainer: {
+    borderWidth: 1,
+    padding: 15,
+    paddingBottom: 20,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    borderColor: '#CBA0AE'
   },
 
   text: {
-
+    fontSize: 18,
+    paddingTop: 5
   },
 
   row: {
     flexDirection: 'row'
+  },
+
+  icon: {
+    alignSelf: 'center'
+  },
+
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 30
+  },
+
+  buttonText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 50,
+    marginBottom: 5,
+    alignSelf: 'center',
+    backgroundColor: '#AF7AB3',
+    paddingHorizontal: 50,
+    paddingVertical: 15,
+    borderRadius: 20,
   }
 });
   

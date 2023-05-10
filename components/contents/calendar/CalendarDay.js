@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
 import { ref, query, equalTo, orderByChild, remove, onValue } from 'firebase/database';
 import { database } from '../../database/FirebaseConfig';
 import FormatDateTime from '../../functions/FormatDateTime';
@@ -7,6 +7,18 @@ import FormatMinutes from '../../functions/FormatMinutes';
 
 
 export default function SleepCalendarDay(props) {
+
+  const confirmDelete = () => {
+    Alert.alert('', 'Are you sure?', [
+      {
+        text: 'No'
+      },
+      {
+        text: 'Yes',
+        onPress: () => deleteEntry()
+      }
+    ]);
+  }; 
 
   const deleteEntry = () => {
     const entriesRef = query(ref(database, 'entries/'), 
@@ -25,7 +37,7 @@ export default function SleepCalendarDay(props) {
     <View style={styles.container}>
       {props.showEntry ? // Conditional rendering, 1. & 2.
       // 1. Entry info
-      <View>
+      <View style={styles.section}>
         <FlatList
           keyExtractor={(item, index) => index.toString()}
           renderItem={({item}) => 
@@ -41,8 +53,8 @@ export default function SleepCalendarDay(props) {
           data={props.entries}
         />
         <TouchableOpacity style={styles.button}
-          onPress={() => deleteEntry()}>
-          <Text style={styles.heading}>Delete</Text>
+          onPress={() => confirmDelete()}>
+          <Text style={styles.buttonText}>Delete</Text>
         </TouchableOpacity>
       </View>
       : // 2. No entry found
@@ -58,14 +70,34 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 
+  section: {
+    borderWidth: 1,
+    borderColor: '#E4D192',
+    paddingHorizontal: 55,
+    borderRadius: 20
+  },
+
   listcontainer: {
     backgroundColor: '#fff',
-    fontSize: 15
+    marginTop: 35
    },
 
    button: {
-    padding: 5,
-    backgroundColor: 'gray'
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20
+  },
+
+  buttonText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 50,
+    marginBottom: 5,
+    alignSelf: 'center',
+    backgroundColor: '#E4D192',
+    paddingHorizontal: 50,
+    paddingVertical: 15,
+    borderRadius: 20,
   },
 
    heading: {
@@ -76,10 +108,6 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: 20
-  },
-
-  star: {
-    color: '#ffb300',
-  },
+    fontSize: 18
+  }
 });

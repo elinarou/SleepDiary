@@ -46,38 +46,42 @@ export default function ProfileScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>User: {user?.email}</Text>
-
-      <Text style={styles.heading}>Sleep time goal</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={text => setUserDetails({...userDetails, sleepGoal: text})}
-        value={userDetails.sleepGoal}
-        keyboardType="numeric"
-        placeholder="Hours"
-      />
-
-      <Text style={styles.heading}>Awakening time goal</Text>
-      <TouchableOpacity onPress={() => showTimePicker()}>
-        <Text style={styles.heading}><FormatTime value={userDetails.awakeningGoal} /></Text>
-      </TouchableOpacity>
-
-      <View style={styles.row}>
-        <Checkbox
-          style={styles.checkbox}
-          value={userDetails.showGoals}
-          onValueChange={setChecked}
-          color={userDetails.showGoals ? '#4630EB' : undefined}
-        />
-        <Text style={styles.heading}>Show goals</Text>
-        <Tooltip 
-          popover={<Text style={{fontSize: 18}}>Enables SleepDiary to show when you should go to sleep to reach your goals.</Text>}
-          height={80}
-          width={380}>
-          <MaterialCommunityIcons name="information" size={25}/>
-        </Tooltip>
+      <Text style={styles.heading}>User</Text>
+      <View style={styles.section1}>
+        <Text style={styles.text}>{user?.email}</Text>
       </View>
+      <View style={styles.section}>
+        <Text style={styles.text}>Sleep time goal</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={text => setUserDetails({...userDetails, sleepGoal: text})}
+          value={userDetails.sleepGoal}
+          keyboardType="numeric"
+          placeholder="Hours"
+        />
 
+        <Text style={styles.text}>Awakening time goal</Text>
+        <TouchableOpacity onPress={() => showTimePicker()}>
+          <Text style={styles.text1}><FormatTime value={userDetails.awakeningGoal} /></Text>
+        </TouchableOpacity>
+
+        <View style={styles.row}>
+          <Checkbox
+            style={styles.checkbox}
+            value={userDetails.showGoals}
+            onValueChange={setChecked}
+            color={userDetails.showGoals ? '#AF7AB3' : undefined}
+          />
+          <Text style={styles.text}>Show goals</Text>
+          <Tooltip 
+            popover={<Text style={{fontSize: 18}}>Enables Sleep Diary to show when you should go to sleep to reach your goals.</Text>}
+              height={80}
+              width={380}
+              backgroundColor='#E4D192'>
+            <MaterialCommunityIcons name="information" size={25}/>
+          </Tooltip>
+        </View>
+      </View>
       <TouchableOpacity style={styles.button} onPress={() => signOut(auth)}>
         <Text style={styles.buttonText}>Sign out</Text>
       </TouchableOpacity>
@@ -88,9 +92,56 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 40,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+
+   heading: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 20,
+    marginBottom: 5,
+    alignSelf: 'center',
+    backgroundColor: '#AF7AB3',
+    paddingHorizontal: 160,
+    paddingVertical: 10,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20
+  },
+
+  section: {
+    padding: 50,
+    paddingBottom: 20,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
+  section1: {
+    borderWidth: 1,
+    padding: 15,
+    paddingBottom: 20,
+    paddingHorizontal: 115,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    borderColor: '#CBA0AE',
+  },
+
+  text: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 20,
+    marginBottom: 5,
+  },
+
+  text1: {
+    fontSize: 16,
+    borderWidth: 1,
+    padding: 5,
+    borderRadius: 20,
+    paddingHorizontal: 40,
+    marginBottom: 10
   },
 
   input: {
@@ -101,23 +152,30 @@ const styles = StyleSheet.create({
     margin: 10
   },
 
-  button: {
-    padding: 5,
-    backgroundColor: 'gray'
-  },
-
   row: {
     flexDirection: 'row'
   },
 
-  heading: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginTop: 15,
-    marginBottom: 5,
-  },
-
   checkbox: {
     margin: 8,
+    alignSelf: 'flex-end'
   },
+
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 30
+  },
+
+  buttonText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 50,
+    marginBottom: 5,
+    alignSelf: 'center',
+    backgroundColor: '#E4D192',
+    paddingHorizontal: 50,
+    paddingVertical: 15,
+    borderRadius: 20,
+  }
 });

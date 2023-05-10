@@ -82,7 +82,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#CBA0AE',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20
   },
 
   heading: {
@@ -101,6 +105,6 @@ const styles = StyleSheet.create({
   },
   
   starSelected: {
-    color: '#ffb300',
+    color: '#E4D192',
   },
 });

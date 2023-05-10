@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { Tooltip } from 'react-native-elements';
+import { SegmentedButtons } from 'react-native-paper';
 import { MaterialCommunityIcons } from 'react-native-vector-icons';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import differenceInMinutes from 'date-fns/differenceInMinutes';
@@ -8,6 +9,7 @@ import format from "date-fns/format";
 import FormatDateTime from '../../functions/FormatDateTime';
 import FormatMinutes from '../../functions/FormatMinutes';
 import Rating from './Rating';
+
 
 
 export default function AddEntry(props) {
@@ -92,30 +94,30 @@ export default function AddEntry(props) {
       // Conditional rendering, 1. & 2.
       // 1. Sleep time and rating
       <View>
-        <Text style={styles.heading}>You slept for <FormatMinutes value={entry.sleepTime} /></Text>
-
-        <Rating entry={entry} setEntry={setEntry} />
-
-        <TouchableOpacity style={styles.button} onPress={() => addEntry()}>
-          <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>Save</Text>
+          <Text style={styles.heading}>You slept for <FormatMinutes value={entry.sleepTime} /></Text>
+          <Rating entry={entry} setEntry={setEntry} />
+        <TouchableOpacity style={styles.button1} onPress={() => addEntry()}>
+          <Text style={styles.buttonText}>Save</Text>
         </TouchableOpacity>
       </View> 
       : // 2. Entry form
       <View>
         <View style={styles.section}>
-          <Text style={styles.heading}>When did you get into bed?</Text>
+          <Text style={styles.text}>When did you get into bed?</Text>
           <TouchableOpacity onPress={() => {type = "bedTime"; showDateTimePicker(pickerMode);}}>
-            <Text style={{fontSize: 20}}><FormatDateTime value={entry.bedTime} /></Text>
+            <Text style={styles.text1}><FormatDateTime value={entry.bedTime} /></Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.section}>
           <View style={styles.tooltip}>
-            <Text style={styles.heading}>Sleep onset latency (SOL)</Text>
+            <Text style={styles.text}>Sleep onset latency (SOL)</Text>
             <Tooltip 
-              popover={<Text style={{fontSize: 18}}>How many minutes did it take to fall asleep?</Text>}
-              height={55}
-              width={380}>
+              popover={<Text style={{ fontSize: 18 }}>How many minutes did it take to fall asleep?</Text>}
+              height={50}
+              width={380}
+              backgroundColor='#E4D192'
+            >
                 <MaterialCommunityIcons name="information" size={25}/>
             </Tooltip>
           </View>
@@ -129,21 +131,24 @@ export default function AddEntry(props) {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.heading}>Did you wake up during the nigh?</Text>
-          <View style={styles.buttons}>
-            <TouchableOpacity style={styles.button} 
-              onPress={() => {setShowAwake(true)}}>
-              <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>Yes</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} 
-              onPress={() => {setShowAwake(false); setEntry({...entry, awakeTime: ''});}}>
-              <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>No</Text>
-            </TouchableOpacity>
-          </View>
-
-          {showAwake &&
+          <Text style={styles.text}>Did you wake up during the nigh?</Text>
+          <SegmentedButtons
+            value={showAwake}
+            onValueChange={setShowAwake}
+            buttons={[
+              {
+                value: true,
+                label: 'Yes',
+              },
+              {
+                value: false,
+                label: 'No',
+              }
+            ]}
+          />
+          {showAwake && // Renderd follow-up question
             (<View>
-              <Text style={styles.heading}>How long were you awake in total?</Text>
+              <Text style={styles.text}>How long were you awake in total?</Text>
               <TextInput
                 style={styles.input}
                 onChangeText={text => setEntry({...entry, awakeTime: text})}
@@ -156,14 +161,14 @@ export default function AddEntry(props) {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.heading}>When did you wake up for the last time?</Text>
+          <Text style={styles.text}>When did you wake up for the last time?</Text>
           <TouchableOpacity onPress={() => {type = "sleepEnd"; showDateTimePicker(pickerMode);}}>
-            <Text style={{fontSize: 20}}><FormatDateTime value={entry.sleepEnd} /></Text>
+            <Text style={styles.text1}><FormatDateTime value={entry.sleepEnd} /></Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.heading}>Other comments?</Text>
+          <Text style={styles.text}>Other comments?</Text>
           <TextInput
             style={styles.input}
             onChangeText={text => setEntry({...entry, comment: text})}
@@ -178,7 +183,7 @@ export default function AddEntry(props) {
 
         <TouchableOpacity style={styles.button} 
           onPress={() => calculateSleep()}>
-            <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>Continue</Text>
+            <Text style={styles.buttonText}>Continue</Text>
         </TouchableOpacity>
       </View>
       }
@@ -195,13 +200,12 @@ const styles = StyleSheet.create({
   },
 
   section: {
-    margin: 5,
     alignItems: 'center',
     justifyContent: 'center'
   },
 
   input: {
-    width: 200, 
+    width: 250, 
     borderColor: 'gray', 
     borderWidth: 1,
     paddingLeft: 5,  
@@ -212,21 +216,56 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 
-  buttons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20
   },
 
-  button: {
-    padding: 5,
-    backgroundColor: 'gray'
+  button1: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 150
+  },
+
+  buttonText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 50,
+    marginBottom: 5,
+    alignSelf: 'center',
+    backgroundColor: '#AF7AB3',
+    paddingHorizontal: 50,
+    paddingVertical: 15,
+    borderRadius: 20,
   },
 
   heading: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 15,
+    marginTop: 80,
+    marginBottom: 5,
+    alignSelf: 'center',
+    backgroundColor: '#CBA0AE',
+    paddingHorizontal: 60,
+    paddingVertical: 40,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20
+  },
+  
+  text: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 20,
     marginBottom: 5,
   },
+
+  text1: {
+    fontSize: 16,
+    borderWidth: 1,
+    padding: 5,
+    borderRadius: 20,
+    paddingHorizontal: 40
+  }
 });
   
