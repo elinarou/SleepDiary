@@ -5,7 +5,7 @@ import EntryScreen from '../contents/diary/EntryScreen';
 
 const Stack = createNativeStackNavigator();
 
-export default function StackNavigation() {
+export default function DiaryEntryStack() {
 
     return (
       // Nested stack navigator

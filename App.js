@@ -1,15 +1,12 @@
 import { StyleSheet, View } from 'react-native';
-import { UserProvider } from './components/context/UserContext';
-import AuthScreen from './components/authentication/AuthScreen';
+import RootNavigation from './components/navigation/RootNavigation';
 
 
 export default function App() {
 
   return (
     <View style={styles.container}>
-      <UserProvider>
-        <AuthScreen />
-      </UserProvider>
+      <RootNavigation />
     </View>
   );
 }

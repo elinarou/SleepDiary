@@ -1,8 +1,9 @@
 import React from 'react';
-import { NavigationContainer, StyleSheet } from '@react-navigation/native';
+import { StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather } from '@expo/vector-icons';  
-import StackNavigation from './StackNavigation';
+import DiaryEntryStack from './DiaryEntryStack';
 import CalendarScreen from '../contents/calendar/CalendarScreen';
 import StatsScreen from '../contents/stats/StatsScreen';
 import ProfileScreen from '../contents/profile/ProfileScreen';
@@ -29,12 +30,12 @@ const screenOptions = ({ route }) => ({
 
 const Tab = createBottomTabNavigator();
 
-export default function TabNavigation() {
+export default function HomeTab() {
   return (
     // Tab navigator
-    <NavigationContainer style={styles.container}>
+    <NavigationContainer style={styles.container} independent={true}>
       <Tab.Navigator screenOptions={screenOptions}>
-        <Tab.Screen name="Diary" component={StackNavigation} options={{ headerShown: false }} />
+        <Tab.Screen name="Diary" component={DiaryEntryStack} options={{ headerShown: false }} />
         <Tab.Screen name="Calendar" component={CalendarScreen} />
         <Tab.Screen name="Stats" component={StatsScreen} />
         <Tab.Screen name="Profile" component={ProfileScreen} />
