@@ -8,6 +8,7 @@ import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import { useAuthentication } from '../../utils/hooks/useAuthentication';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../database/FirebaseConfig';
+import FormatTime from '../../functions/FormatTime';
 
 
 export default function ProfileScreen() {
@@ -58,7 +59,7 @@ export default function ProfileScreen() {
 
       <Text style={styles.heading}>Awakening time goal</Text>
       <TouchableOpacity onPress={() => showTimePicker()}>
-        <Text style={styles.heading}>Add time</Text>
+        <Text style={styles.heading}><FormatTime value={userDetails.awakeningGoal} /></Text>
       </TouchableOpacity>
 
       <View style={styles.row}>
@@ -76,10 +77,6 @@ export default function ProfileScreen() {
           <MaterialCommunityIcons name="information" size={25}/>
         </Tooltip>
       </View>
-      
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.heading}>Save</Text>
-      </TouchableOpacity>
 
       <TouchableOpacity style={styles.button} onPress={() => signOut(auth)}>
         <Text style={styles.buttonText}>Sign out</Text>

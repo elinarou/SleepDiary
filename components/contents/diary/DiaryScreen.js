@@ -7,6 +7,7 @@ import LatestEntry from './LatestEntry';
 import { Feather } from 'react-native-vector-icons';
 import format from "date-fns/format";
 import differenceInMinutes from 'date-fns/differenceInMinutes';
+import FormatTime from '../../functions/FormatTime';
 
 
 export default function DiaryScreen({ navigation }) {
@@ -82,6 +83,7 @@ export default function DiaryScreen({ navigation }) {
         <View>
           <Text style={styles.heading}>Goals</Text>
           <Text style={styles.text}>Sleep time: {userDetails.sleepGoal} h</Text>
+          <Text style={styles.text}>Tomorrow's wake-up: <FormatTime value={userDetails.awakeningGoal} /></Text>
           <TouchableOpacity style={styles.row} onPress={() => calculateGoals()}>
             <Text style={styles.text}>Status: {message}  </Text>
             <Feather name={'refresh-cw'} size={20} />

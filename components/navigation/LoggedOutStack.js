@@ -12,7 +12,7 @@ export default function LoggedOutStack() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Welcome" component={LoggedOutScreen} />
+        <Stack.Screen name="Login" component={LoggedOutScreen} />
         <Stack.Screen name="Sign In" component={SignInScreen} />
         <Stack.Screen name="Sign Up" component={SignUpScreen} />
       </Stack.Navigator>

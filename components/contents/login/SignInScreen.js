@@ -30,29 +30,30 @@ export default function SignInScreen({ navigation }) {
       <Text style={styles.heading}>Sign In</Text>
 
       {!!value.error && <View style={styles.error}><Text>{value.error}</Text></View>}
-
-      <View style={styles.row}>
-        <Icon name='envelope' size={20} />
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setValue({...value, email: text})}
-          value={value.email}
-          placeholder="Email"
-        />
-      </View>
-      <View style={styles.row}>
-        <Icon name='key' size={20} />
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setValue({...value, password: text})}
-          value={value.password}
-          secureTextEntry={true}
-          placeholder="Password"
-        />
+      <View style={styles.section}>
+        <View style={styles.row}>
+          <Icon style={styles.icon} name='envelope' size={20} />
+          <TextInput
+            style={styles.input}
+            onChangeText={(text) => setValue({...value, email: text})}
+            value={value.email}
+            placeholder="Email"
+          />
         </View>
-        <TouchableOpacity style={styles.button} onPress={signIn}>
-          <Text style={styles.buttonText}>Sign in</Text>
-        </TouchableOpacity>
+        <View style={styles.row}>
+          <Icon style={styles.icon} name='key' size={20} />
+          <TextInput
+            style={styles.input}
+            onChangeText={(text) => setValue({...value, password: text})}
+            value={value.password}
+            secureTextEntry={true}
+            placeholder="Password"
+          />
+          </View>
+          <TouchableOpacity style={styles.button} onPress={signIn}>
+            <Text style={styles.buttonText}>Sign in</Text>
+          </TouchableOpacity>
+        </View>
     </View>
   );
 };
@@ -65,29 +66,33 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  row: {
-    flexDirection: 'row'
+  section: {
+    flex: 1
   },
 
-  buttons: {
-    flex: 1,
+  row: {
+    flexDirection: 'row',
   },
   
   button: {
-    flex: 1, 
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: '#AFD3E2',
+    borderRadius: 20,
+    margin: 10,
+    padding: 15,
   },
 
   heading: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 15,
+    marginTop: 40,
     marginBottom: 5,
+    padding: 20,
   },
 
   buttonText: {
-
+    fontSize: 20
   },
 
   input: {
@@ -96,6 +101,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingLeft: 5,  
     margin: 10
+  },
+
+  icon: {
+    alignSelf: 'center'
   },
 
   error: {
