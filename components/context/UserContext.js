@@ -6,7 +6,8 @@ const UserDispatchContext = createContext({});
 const UserProvider = ({ children }) => {
   const [userDetails, setUserDetails] = useState({
     sleepGoal: '8',
-    awakeningGoal: new Date()
+    awakeningGoal: new Date(),
+    showGoals: false
   });
 
   return (

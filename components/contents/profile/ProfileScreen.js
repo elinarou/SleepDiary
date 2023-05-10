@@ -1,4 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import Checkbox from 'expo-checkbox';
+import { Tooltip } from 'react-native-elements';
+import { MaterialCommunityIcons } from 'react-native-vector-icons';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { UserContext, UserDispatchContext } from '../../context/UserContext';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
@@ -31,6 +34,15 @@ export default function ProfileScreen() {
     });
   };
 
+  const setChecked = () => {
+    if (userDetails.showGoals) {
+      setUserDetails({...userDetails, showGoals: false});
+    }
+    else {
+      setUserDetails({...userDetails, showGoals: true});
+    };
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>User: {user?.email}</Text>
@@ -49,6 +61,22 @@ export default function ProfileScreen() {
         <Text style={styles.heading}>Add time</Text>
       </TouchableOpacity>
 
+      <View style={styles.row}>
+        <Checkbox
+          style={styles.checkbox}
+          value={userDetails.showGoals}
+          onValueChange={setChecked}
+          color={userDetails.showGoals ? '#4630EB' : undefined}
+        />
+        <Text style={styles.heading}>Show goals</Text>
+        <Tooltip 
+          popover={<Text style={{fontSize: 18}}>Enables SleepDiary to show when you should go to sleep to reach your goals.</Text>}
+          height={80}
+          width={380}>
+          <MaterialCommunityIcons name="information" size={25}/>
+        </Tooltip>
+      </View>
+      
       <TouchableOpacity style={styles.button}>
         <Text style={styles.heading}>Save</Text>
       </TouchableOpacity>
@@ -81,10 +109,18 @@ const styles = StyleSheet.create({
     backgroundColor: 'gray'
   },
 
+  row: {
+    flexDirection: 'row'
+  },
+
   heading: {
     fontSize: 20,
     fontWeight: 'bold',
     marginTop: 15,
     marginBottom: 5,
+  },
+
+  checkbox: {
+    margin: 8,
   },
 });

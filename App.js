@@ -1,12 +1,15 @@
 import { StyleSheet, View } from 'react-native';
 import RootNavigation from './components/navigation/RootNavigation';
+import { UserProvider } from './components/context/UserContext';
 
 
 export default function App() {
 
   return (
     <View style={styles.container}>
-      <RootNavigation />
+      <UserProvider>
+        <RootNavigation />
+      </UserProvider>
     </View>
   );
 }
