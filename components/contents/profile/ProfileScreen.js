@@ -2,10 +2,13 @@ import React, { useContext } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { UserContext, UserDispatchContext } from '../../context/UserContext';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
-import FormatTime from '../../functions/FormatTime';
+import { useAuthentication } from '../../utils/hooks/useAuthentication';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../database/FirebaseConfig';
 
 
 export default function ProfileScreen() {
+  const { user } = useAuthentication();
   const userDetails = useContext(UserContext); 
   const setUserDetails = useContext(UserDispatchContext);
 
@@ -30,30 +33,8 @@ export default function ProfileScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Username</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={text => setUserDetails({...userDetails, username: text})}
-        value={userDetails.username}
-        placeholder="Username"
-        maxLength={250}
-      />
-      <Text style={styles.heading}>Email</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={text => setUserDetails({...userDetails, email: text})}
-        value={userDetails.email}
-        placeholder="Email"
-        maxLength={250}
-      />
-      <Text style={styles.heading}>Password</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={text => setUserDetails({...userDetails, password: text})}
-        value={userDetails.password}
-        placeholder="Password"
-        maxLength={250}
-      />
+      <Text style={styles.heading}>User: {user?.email}</Text>
+
       <Text style={styles.heading}>Sleep time goal</Text>
       <TextInput
         style={styles.input}
@@ -62,12 +43,18 @@ export default function ProfileScreen() {
         keyboardType="numeric"
         placeholder="Hours"
       />
+
       <Text style={styles.heading}>Awakening time goal</Text>
       <TouchableOpacity onPress={() => showTimePicker()}>
-        <Text style={styles.heading}><FormatTime value={userDetails.awakeningGoal} /></Text>
+        <Text style={styles.heading}>Add time</Text>
       </TouchableOpacity>
+
       <TouchableOpacity style={styles.button}>
         <Text style={styles.heading}>Save</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={() => signOut(auth)}>
+        <Text style={styles.buttonText}>Sign out</Text>
       </TouchableOpacity>
     </View>
   );
