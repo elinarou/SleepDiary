@@ -1,6 +1,6 @@
 # mobiiliohjelmointi_SleepDiary
 
-Sleep Diary on unenseurannan päiväkirjasovellus, joka sisältää kyselylomakkeen, kalenterin ja tilaston.
+Sleep Diary on unen seurannan päiväkirjasovellus, joka sisältää kyselylomakkeen, kalenterin ja tilaston.
 Sovelluksessa käytetään Firebase Realtime -tietokantaa datan tallentamiseen, hakemiseen ja poistoon. Tämän lisäksi
 sovellus vaatii sisäänkirjautumisen Firebase -autentikoinnin kautta. 
 
