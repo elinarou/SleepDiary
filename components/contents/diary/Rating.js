@@ -18,7 +18,7 @@ export default function Rating(props) {
         <View style={styles.stars}>
           <TouchableOpacity onPress={() => {
             setColor(1);
-            setReview("Poor")
+            setReview('Poor')
             addRating(1);
             }}>
             <FontAwesome
@@ -29,7 +29,7 @@ export default function Rating(props) {
           </TouchableOpacity>
           <TouchableOpacity onPress={() => {
             setColor(2);
-            setReview("Fair") 
+            setReview('Fair') 
             addRating(2);
             }}>
             <FontAwesome
@@ -40,7 +40,7 @@ export default function Rating(props) {
           </TouchableOpacity>
           <TouchableOpacity onPress={() => {
             setColor(3);
-            setReview("Good") 
+            setReview('Good') 
             addRating(3);
             }}>
             <FontAwesome
@@ -51,7 +51,7 @@ export default function Rating(props) {
           </TouchableOpacity>
           <TouchableOpacity onPress={() => {
             setColor(4);
-            setReview("Very good") 
+            setReview('Very good') 
             addRating(4);
             }}>
             <FontAwesome
@@ -62,7 +62,7 @@ export default function Rating(props) {
           </TouchableOpacity>
           <TouchableOpacity onPress={() => {
             setColor(5);
-            setReview("Excellent")
+            setReview('Excellent')
             addRating(5);
             }}>
             <FontAwesome

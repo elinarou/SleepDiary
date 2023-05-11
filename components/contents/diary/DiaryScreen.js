@@ -14,7 +14,7 @@ export default function DiaryScreen({ navigation }) {
   const userDetails = useContext(UserContext);
   const [showLatest, setShowLatest] = useState(false);
   const [latest, setLatest] = useState([]);
-  const [today, setToday] = useState(format(new Date(), "yyyy-LL-dd"));
+  const [today, setToday] = useState(format(new Date(), 'yyyy-LL-dd'));
   const [message, setMessage] = useState('');
 
 
@@ -37,13 +37,13 @@ export default function DiaryScreen({ navigation }) {
   // Tests if there is already an entry with the same entryDate
   const testEntryStatus = () => {
     if (!showLatest) {
-      navigation.navigate("Entry");
+      navigation.navigate('Entry');
     }
     else if (latest[0].entryDate == today) {
       Alert.alert('', 'You have already made an entry today.');
     }
     else {
-      navigation.navigate("Entry");
+      navigation.navigate('Entry');
     };
   };
 
@@ -53,8 +53,8 @@ export default function DiaryScreen({ navigation }) {
     const sleep = userDetails.sleepGoal;
 
     let now = new Date();
-    let tomorrowGoal = new Date(now)
-    tomorrowGoal.setDate(tomorrowGoal.getDate() + 1)
+    let tomorrowGoal = new Date(now);
+    tomorrowGoal.setDate(tomorrowGoal.getDate() + 1);
     tomorrowGoal.setHours(awakening.getHours());
     tomorrowGoal.setMinutes(awakening.getMinutes());
     tomorrowGoal.setSeconds(0);
@@ -63,12 +63,12 @@ export default function DiaryScreen({ navigation }) {
     const diff = differenceInMinutes(tomorrowGoal, now);
 
     if ((diff - sleep * 60) == 0) {
-      setMessage(`Now is time to go to bed.`)
+      setMessage(`Now is time to go to bed.`);
     }
     else {
       const hours = Math.floor((diff - sleep * 60) / 60);
       const minutes = (diff - sleep * 60) % 60;
-      setMessage(`${hours} h ${minutes} min to bedtime.`)
+      setMessage(`${hours} h ${minutes} min to bedtime.`);
     };
   };
 

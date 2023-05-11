@@ -17,7 +17,7 @@ export default function AddEntry(props) {
   const [showRating, setShowRating] = useState(false);
   const [entry, setEntry] = useState(
     {
-      entryDate: format(new Date(), "yyyy-LL-dd"),
+      entryDate: format(new Date(), 'yyyy-LL-dd'),
       bedTime: new Date(),
       sleepDelay: '0',
       awakeTime: '0',
@@ -28,23 +28,23 @@ export default function AddEntry(props) {
     });
   
   // Temporary variables
-  let type = "";
-  let pickerMode = "date";
+  let type = '';
+  let pickerMode = 'date';
   let date = new Date();
   let time = new Date();
   let yesterday = date.setDate(date.getDate() - 1);
 
   // Handles date & time picker values
   const onChange = (event, selectedValue) => {
-    if (pickerMode == "date") {
+    if (pickerMode == 'date') {
       const currentDate = selectedValue;
       date = currentDate;
 
       // Opens time picker
-      pickerMode = "time";
+      pickerMode = 'time';
       showDateTimePicker(pickerMode);
     }
-    else if (pickerMode == "time") {
+    else if (pickerMode == 'time') {
       const selectedTime = selectedValue;
       time = selectedTime;
       
@@ -104,7 +104,7 @@ export default function AddEntry(props) {
       <View>
         <View style={styles.section}>
           <Text style={styles.text}>When did you get into bed?</Text>
-          <TouchableOpacity onPress={() => {type = "bedTime"; showDateTimePicker(pickerMode);}}>
+          <TouchableOpacity onPress={() => {type = 'bedTime'; showDateTimePicker(pickerMode);}}>
             <Text style={styles.text1}><FormatDateTime value={entry.bedTime} /></Text>
           </TouchableOpacity>
         </View>
@@ -118,15 +118,15 @@ export default function AddEntry(props) {
               width={380}
               backgroundColor='#E4D192'
             >
-                <MaterialCommunityIcons name="information" size={25}/>
+                <MaterialCommunityIcons name={'information'} size={25}/>
             </Tooltip>
           </View>
           <TextInput
             style={styles.input}
             onChangeText={text => setEntry({...entry, sleepDelay: text})}
             value={entry.sleepDelay}
-            keyboardType="numeric"
-            placeholder="Min"
+            keyboardType='numeric'
+            placeholder='Min'
           />
         </View>
 
@@ -153,8 +153,8 @@ export default function AddEntry(props) {
                 style={styles.input}
                 onChangeText={text => setEntry({...entry, awakeTime: text})}
                 value={entry.awakeTime}
-                keyboardType="numeric"
-                placeholder="Min"
+                keyboardType='numeric'
+                placeholder='Min'
               />
             </View>)
           }
@@ -162,7 +162,7 @@ export default function AddEntry(props) {
 
         <View style={styles.section}>
           <Text style={styles.text}>When did you wake up for the last time?</Text>
-          <TouchableOpacity onPress={() => {type = "sleepEnd"; showDateTimePicker(pickerMode);}}>
+          <TouchableOpacity onPress={() => {type = 'sleepEnd'; showDateTimePicker(pickerMode);}}>
             <Text style={styles.text1}><FormatDateTime value={entry.sleepEnd} /></Text>
           </TouchableOpacity>
         </View>
@@ -173,11 +173,11 @@ export default function AddEntry(props) {
             style={styles.input}
             onChangeText={text => setEntry({...entry, comment: text})}
             value={entry.comment}
-            placeholder="Comment"
+            placeholder='Comment'
             multiline
             numberOfLines={3}
             maxLength={250}
-            textAlignVertical="top"
+            textAlignVertical='top'
           />
         </View>
 

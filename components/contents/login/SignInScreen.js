@@ -37,7 +37,7 @@ export default function SignInScreen({ navigation }) {
             style={styles.input}
             onChangeText={(text) => setValue({...value, email: text})}
             value={value.email}
-            placeholder="Email"
+            placeholder='Email'
           />
         </View>
         <View style={styles.row}>
@@ -47,7 +47,7 @@ export default function SignInScreen({ navigation }) {
             onChangeText={(text) => setValue({...value, password: text})}
             value={value.password}
             secureTextEntry={true}
-            placeholder="Password"
+            placeholder='Password'
           />
           </View>
           <TouchableOpacity style={styles.button} onPress={signIn}>

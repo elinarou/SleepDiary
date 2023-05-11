@@ -57,8 +57,8 @@ export default function ProfileScreen() {
           style={styles.input}
           onChangeText={text => setUserDetails({...userDetails, sleepGoal: text})}
           value={userDetails.sleepGoal}
-          keyboardType="numeric"
-          placeholder="Hours"
+          keyboardType='numeric'
+          placeholder='Hours'
         />
 
         <Text style={styles.text}>Awakening time goal</Text>
@@ -79,7 +79,7 @@ export default function ProfileScreen() {
               height={80}
               width={380}
               backgroundColor='#E4D192'>
-            <MaterialCommunityIcons name="information" size={25}/>
+            <MaterialCommunityIcons name={'information'} size={25}/>
           </Tooltip>
         </View>
       

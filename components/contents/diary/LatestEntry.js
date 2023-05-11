@@ -26,7 +26,7 @@ export default function LatestEntry(props) {
             data={props.latest}
           />
         </View>
-        : // Initial render, if database is empty
+        : // 2. Initial render, if database is empty
         <View style={styles.container}>
           <Text style={styles.heading1}>Start your Sleep Diary</Text> 
           <FontAwesome name={'long-arrow-down'} size={100} />
