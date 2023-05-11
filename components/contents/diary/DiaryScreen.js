@@ -68,7 +68,7 @@ export default function DiaryScreen({ navigation }) {
     else {
       const hours = Math.floor((diff - sleep * 60) / 60);
       const minutes = (diff - sleep * 60) % 60;
-      setMessage(`${hours} h ${minutes} min to bed time.`)
+      setMessage(`${hours} h ${minutes} min to bedtime.`)
     };
   };
 
