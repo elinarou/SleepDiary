@@ -146,7 +146,7 @@ export default function AddEntry(props) {
               }
             ]}
           />
-          {showAwake && // Renderd follow-up question
+          {showAwake && // Renders follow-up question
             (<View>
               <Text style={styles.text}>How long were you awake in total?</Text>
               <TextInput

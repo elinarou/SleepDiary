@@ -34,6 +34,7 @@ export default function DiaryScreen({ navigation }) {
     })
   }, []);
 
+  // Tests if there is already an entry with the same entryDate
   const testEntryStatus = () => {
     if (!showLatest) {
       navigation.navigate("Entry");
@@ -46,6 +47,7 @@ export default function DiaryScreen({ navigation }) {
     };
   };
 
+  // Returns goal status based on profile
   const calculateGoals = () => {
     const awakening = userDetails.awakeningGoal;
     const sleep = userDetails.sleepGoal;
@@ -150,7 +152,7 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 30
+    marginBottom: 30,
   },
 
   buttonText: {

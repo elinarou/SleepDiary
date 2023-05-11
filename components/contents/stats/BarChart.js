@@ -32,7 +32,6 @@ export default function BarCharts(props) {
       awakeTimeArr.push(item.awakeTime);
       qualityArr.push(item.quality);
       period.push(item.sleepEnd);
-
     });
 
     if (sleepTimeArr.length < 7) {

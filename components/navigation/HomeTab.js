@@ -32,7 +32,7 @@ const Tab = createBottomTabNavigator();
 
 export default function HomeTab() {
   return (
-    // Tab navigator
+    // Nested in LoggedInStack
     <NavigationContainer style={styles.container} independent={true}>
       <Tab.Navigator screenOptions={screenOptions}>
         <Tab.Screen name="Diary" component={DiaryEntryStack} options={{ headerShown: false }} />

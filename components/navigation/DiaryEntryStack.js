@@ -8,7 +8,7 @@ const Stack = createNativeStackNavigator();
 export default function DiaryEntryStack() {
 
     return (
-      // Nested stack navigator
+      // Nested in HomeTab
       <Stack.Navigator>
         <Stack.Screen name="Sleep Diary"component={DiaryScreen} />
         <Stack.Screen name="Entry"component={EntryScreen} />

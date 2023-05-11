@@ -46,10 +46,11 @@ export default function ProfileScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>User</Text>
       <View style={styles.section1}>
-        <Text style={styles.text}>{user?.email}</Text>
+        <Text style={styles.heading}>Profile</Text>
+        <Text style={styles.heading1}>User: {user?.email}</Text>
       </View>
+  
       <View style={styles.section}>
         <Text style={styles.text}>Sleep time goal</Text>
         <TextInput
@@ -81,10 +82,11 @@ export default function ProfileScreen() {
             <MaterialCommunityIcons name="information" size={25}/>
           </Tooltip>
         </View>
+      
+        <TouchableOpacity style={styles.button} onPress={() => signOut(auth)}>
+          <Text style={styles.buttonText}>Sign out</Text>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.button} onPress={() => signOut(auth)}>
-        <Text style={styles.buttonText}>Sign out</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -101,31 +103,33 @@ const styles = StyleSheet.create({
    heading: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 20,
-    marginBottom: 5,
+    marginTop: 10,
+    marginBottom: 20,
     alignSelf: 'center',
-    backgroundColor: '#AF7AB3',
-    paddingHorizontal: 160,
-    paddingVertical: 10,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20
+  },
+
+  heading1: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    alignSelf: 'center',
   },
 
   section: {
-    padding: 50,
-    paddingBottom: 20,
+    padding: 20,
+    paddingBottom: 10,
+    paddingHorizontal: 65,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#E4D192',
+    borderRadius: 20
   },
 
   section1: {
-    borderWidth: 1,
-    padding: 15,
-    paddingBottom: 20,
-    paddingHorizontal: 115,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    borderColor: '#CBA0AE',
+    padding: 20,
+    paddingBottom: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   text: {

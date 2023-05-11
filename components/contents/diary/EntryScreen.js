@@ -33,7 +33,7 @@ export default function EntryScreen() {
 
   return (
     <View style={styles.container}>
-      {showFeedback ?
+      {showFeedback ? 
         <Text style={styles.heading}>Entry saved</Text>
         :
         <AddEntry saveEntry={saveEntry} />

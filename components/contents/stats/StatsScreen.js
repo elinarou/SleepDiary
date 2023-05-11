@@ -8,6 +8,7 @@ import BarCharts from './BarChart';
 export default function StatsScreen() {
   const [entries, setEntries] = useState([]);
 
+  // Searches last 7 entries
   useEffect(() => {
     const entriesRef = query(ref(database, 'entries/'), 
       orderByChild('entryDate'),
