@@ -1,10 +1,9 @@
-# mobiiliohjelmointi_SleepDiary
+# SleepDiary
 
-Sleep Diary on unen seurannan päiväkirjasovellus, joka sisältää kyselylomakkeen, kalenterin ja tilaston.
-Sovelluksessa käytetään Firebase Realtime -tietokantaa datan tallentamiseen, hakemiseen ja poistoon. Tämän lisäksi
-sovellus vaatii sisäänkirjautumisen Firebase -autentikoinnin kautta. 
+Sleep Diary is a diary app that uses questionnaires, statistics, and a calendar to track and display users' sleep habits.
+The data is stored in the Firebase Realtime database and can be retrieved and deleted via the app. Sleep Diary also uses Firebase authentication. 
 
-Sovelluksessa on käytetty myös seuraavia komponentteja:
+Sleep Diary uses the following components:
 - React Native / Tab & Stack navigation
 - React Native / DateTimePicker
 - React Native / Calendar
