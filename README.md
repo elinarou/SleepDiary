@@ -13,11 +13,16 @@ Sleep Diary uses the following components:
 - Gifted Charts / Stacked Bar Chart
 
 ## Screenshots
+<div>
+  <img alt="Screenshot of the login" src="/screenshots/Login.jpg" width="20%" height="20%" />
+  <img alt="Screenshot of the diary" src="/screenshots/Diary.jpg" width="20%" height="20%" />
+  <img alt="Screenshot of the new entry questionnaire" src="/screenshots/New_entry1.jpg" width="20%" height="20%" />
+  <img alt="Screenshot of the display of total sleep time and quality" src="/screenshots/New_entry2.jpg" width="20%" height="20%" />
+</div>
+</br>
+<div>
+  <img alt="Screenshot of the calendar" src="/screenshots/Calendar.jpg" width="20%" height="20%" />
+  <img alt="Screenshot of the stats" src="/screenshots/Stats.jpg" width="20%" height="20%" />
+  <img alt="Screenshot of the profile" src="/screenshots/Profile.jpg" width="20%" height="20%" />
+</div>
 
-<img alt="Screenshot of the login" src="/screenshots/Login.jpg" width="20%" height="20%" />
-<img alt="Screenshot of the diary" src="/screenshots/Diary.jpg" width="20%" height="20%" />
-<img alt="Screenshot of the new entry questionnaire" src="/screenshots/New_entry1.jpg" width="20%" height="20%" />
-<img alt="Screenshot of the display of total sleep time and quality" src="/screenshots/New_entry2.jpg" width="20%" height="20%" />
-<img alt="Screenshot of the calendar" src="/screenshots/Calendar.jpg" width="20%" height="20%" />
-<img alt="Screenshot of the stats" src="/screenshots/Stats.jpg" width="20%" height="20%" />
-<img alt="Screenshot of the profile" src="/screenshots/Profile.jpg" width="20%" height="20%" />
