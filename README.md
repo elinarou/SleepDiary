@@ -15,9 +15,9 @@ Sleep Diary uses the following components:
 ## Screenshots
 
 <img alt="Screenshot of the login" src="/screenshots/Login.jpg" width="50%" height="50%" />
-![Screenshot of the diary](/screenshots/Diary.jpg)
-![Screenshot of the new entry questionnaire](/screenshots/New_entry1.jpg)
-![Screenshot of the display of the total sleep time and quality](/screenshots/New_entry2.jpg)
-![Screenshot of the calendar](/screenshots/Calendar.jpg)
-![Screenshot of the stats](/screenshots/Stats.jpg)
-![Screenshot of the profile](/screenshots/Profile.jpg)
+<img alt="Screenshot of the diary" src="/screenshots/Diary.jpg" width="50%" height="50%" />
+<img alt="Screenshot of the new entry questionnaire" src="/screenshots/New_entry1.jpg" width="50%" height="50%" />
+<img alt="Screenshot of the display of total sleep time and quality" src="/screenshots/New_entry2.jpg" width="50%" height="50%" />
+<img alt="Screenshot of the calendar" src="/screenshots/Calendar.jpg" width="50%" height="50%" />
+<img alt="Screenshot of the stats" src="/screenshots/Stats.jpg" width="50%" height="50%" />
+<img alt="Screenshot of the profile" src="/screenshots/Profile.jpg" width="50%" height="50%" />
